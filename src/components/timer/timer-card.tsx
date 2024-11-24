@@ -62,10 +62,12 @@ const TimerCard = () => {
   };
 
   return (
-    <Card>
+    <Card className="w-full min-w-fit">
       <CardHeader>
         <CardTitle>Pomo!</CardTitle>
-        {!running && <CardDescription>Click to edit timer</CardDescription>}
+        <CardDescription>
+          {running ? "Happy focusing!" : "Click to edit timer"}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div
@@ -97,7 +99,7 @@ const TimerCard = () => {
       <CardFooter className="justify-center">
         <Button
           variant={running ? "destructive" : "default"}
-          className="w-full"
+          className="w-1/2"
           onClick={running ? pauseTimer : startTimer}
           disabled={
             !minutes || !seconds || (minutes === "00" && seconds === "00")
