@@ -28,7 +28,7 @@ const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
       }
     }}
     onBlur={onBlur}
-    className={`max-w-[2ch] text-card-foreground bg-card text-center ${cn}`}
+    className={`rounded-sm max-w-[2ch] text-card-foreground bg-card text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 ${cn}`}
     {...rest}
   />
 );

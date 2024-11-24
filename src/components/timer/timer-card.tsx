@@ -67,7 +67,11 @@ const TimerCard = () => {
         {!running && <CardDescription>Click to edit timer</CardDescription>}
       </CardHeader>
       <CardContent>
-        <div className="flex justify-center text-6xl">
+        <div
+          className={`flex justify-center text-6xl ${
+            running && "pointer-events-none"
+          }`}
+        >
           <Input
             id="minutes"
             value={minutes}
