@@ -1,44 +1,11 @@
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import TimerCard from "@/components/timer/timer-card";
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Card>
-          <CardHeader>
-            <CardTitle>Pomo!</CardTitle>
-            <CardDescription>Click to edit timer</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-x-1 justify-center text-6xl">
-              <input
-                type="number"
-                id="minuteInput"
-                value="30"
-                className="max-w-[2ch] text-card-foreground bg-card"
-              />
-              {" : "}
-              <input
-                type="number"
-                id="secondInput"
-                value="00"
-                className="max-w-[2ch] text-card-foreground bg-card"
-              />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Start</Button>
-          </CardFooter>
-        </Card>
+        <TimerCard />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
