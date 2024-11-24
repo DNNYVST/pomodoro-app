@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 type Session = {
   id: number;
   text: string;
+  defaultMinutes: string;
 };
 
 const sessions: Session[] = [
-  { id: 1, text: "Pomodoro" },
-  { id: 2, text: "Short Break" },
-  { id: 3, text: "Long Break" },
+  { id: 1, text: "Pomodoro", defaultMinutes: "30" },
+  { id: 2, text: "Short Break", defaultMinutes: "5" },
+  { id: 3, text: "Long Break", defaultMinutes: "15" },
 ];
 
 const SessionTypeButtonGroup = () => {
