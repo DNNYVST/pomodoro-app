@@ -16,7 +16,7 @@ const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
 
 const TimerCard = () => {
-  const [minutes, setMinutes] = useState<string>("01");
+  const [minutes, setMinutes] = useState<string>("25");
   const [seconds, setSeconds] = useState<string>("00");
   const [intervalID, setIntervalID] = useState<number | null>(null);
   const [running, setRunning] = useState<boolean>(false);
