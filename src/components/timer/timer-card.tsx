@@ -51,6 +51,7 @@ const TimerCard = () => {
         );
       }
     }, 1000);
+
     setIntervalID(+timer);
   };
 
