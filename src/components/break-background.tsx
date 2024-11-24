@@ -11,7 +11,11 @@ const BreakBackground = ({ onBreak = false }: { onBreak: boolean }) => {
   const toggleVideoPlayback = (play: boolean) => {
     for (const ref of videoRefs) {
       if (ref.current) {
-        play ? ref.current.play() : ref.current.pause();
+        if (play) {
+          ref.current.play();
+        } else {
+          ref.current.pause();
+        }
       }
     }
   };
