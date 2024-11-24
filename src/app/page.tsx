@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import BreakBackground from "../components/break-background";
 import TimerCard from "../components/timer/timer-card";
 import { Card, CardContent } from "@/components/ui/card";
