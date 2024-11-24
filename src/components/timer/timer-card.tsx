@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Input from "./input";
+import SessionTypeButtonGroup from "./session-type-button-group";
 
 const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
@@ -67,13 +68,7 @@ const TimerCard = () => {
   return (
     <Card className="w-full min-w-fit">
       <CardHeader>
-        <div className="flex gap-x-2 justify-center">
-          <Button variant="outline" disabled>
-            Pomodoro
-          </Button>
-          <Button variant="outline">Short Break</Button>
-          <Button variant="outline">Long Break</Button>
-        </div>
+        <SessionTypeButtonGroup />
       </CardHeader>
       <CardContent>
         <CardDescription className="pb-2 text-center pointer-events-none">
