@@ -73,7 +73,7 @@ const TimerCard = () => {
             value={minutes}
             onChange={(e) => setMinutes(e.target.value)}
             onBlur={() =>
-              setMinutes((minutes) => getFormattedNumberString(minutes))
+              setMinutes((minutes) => getFormattedNumberString(minutes || "00"))
             }
             disabled={running}
           />
@@ -83,7 +83,7 @@ const TimerCard = () => {
             value={seconds}
             onChange={(e) => setSeconds(e.target.value)}
             onBlur={() =>
-              setSeconds((seconds) => getFormattedNumberString(seconds))
+              setSeconds((seconds) => getFormattedNumberString(seconds || "00"))
             }
             disabled={running}
           />
@@ -94,6 +94,9 @@ const TimerCard = () => {
           variant={running ? "destructive" : "default"}
           className="w-full"
           onClick={running ? pauseTimer : startTimer}
+          disabled={
+            !minutes || !seconds || (minutes === "00" && seconds === "00")
+          }
         >
           {running ? "Pause" : "Start"}
         </Button>

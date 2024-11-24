@@ -14,6 +14,7 @@ const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
     min="0"
     id={id}
     value={+value < 0 ? "00" : value}
+    placeholder="00"
     onKeyDown={(e) => {
       if (e.key === "-") {
         e.preventDefault();
