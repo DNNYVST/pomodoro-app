@@ -67,12 +67,18 @@ const TimerCard = () => {
   return (
     <Card className="w-full min-w-fit">
       <CardHeader>
-        <CardTitle>Pomo!</CardTitle>
-        <CardDescription>
-          {running ? "Happy focusing!" : "Click to edit timer"}
-        </CardDescription>
+        <div className="flex gap-x-2 justify-center">
+          <Button variant="outline" disabled>
+            Pomodoro
+          </Button>
+          <Button variant="outline">Short Break</Button>
+          <Button variant="outline">Long Break</Button>
+        </div>
       </CardHeader>
       <CardContent>
+        <CardDescription className="pb-2 text-center pointer-events-none">
+          {running ? "Happy focusing!" : "Click to edit timer"}
+        </CardDescription>
         <div
           className={`flex justify-center text-6xl ${
             running && "pointer-events-none"
