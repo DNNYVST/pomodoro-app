@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 type Session = {
@@ -9,26 +6,34 @@ type Session = {
   defaultMinutes: string;
 };
 
+interface SessionTypeButtonGroupProps {
+  activeID: number;
+  onClick: (id: number, minutes: string) => void;
+  disabled: boolean;
+}
+
 const sessions: Session[] = [
   { id: 1, text: "Pomodoro", defaultMinutes: "30" },
-  { id: 2, text: "Short Break", defaultMinutes: "5" },
+  { id: 2, text: "Short Break", defaultMinutes: "05" },
   { id: 3, text: "Long Break", defaultMinutes: "15" },
 ];
 
-const SessionTypeButtonGroup = () => {
-  const [activeID, setActiveID] = useState<number>(1);
-
+const SessionTypeButtonGroup = ({
+  activeID,
+  onClick,
+  disabled,
+}: SessionTypeButtonGroupProps) => {
   return (
     <div className="flex justify-center">
-      {sessions.map(({ id, text }: Session) => (
+      {sessions.map(({ id, text, defaultMinutes }: Session) => (
         <Button
           key={id}
           variant="outline"
-          onClick={() => setActiveID(id)}
+          onClick={() => onClick(id, defaultMinutes)}
           className={`${activeID !== id && "border-transparent"} ${
             activeID === id && "!opacity-100 hover:bg-background"
           }`}
-          disabled={activeID === id}
+          disabled={activeID === id || disabled}
         >
           {text}
         </Button>

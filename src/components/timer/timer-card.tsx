@@ -17,7 +17,8 @@ const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
 
 const TimerCard = () => {
-  const [minutes, setMinutes] = useState<string>("25");
+  const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
+  const [minutes, setMinutes] = useState<string>("30");
   const [seconds, setSeconds] = useState<string>("00");
   const [intervalID, setIntervalID] = useState<number | null>(null);
   const [running, setRunning] = useState<boolean>(false);
@@ -35,6 +36,12 @@ const TimerCard = () => {
     }
   }, [seconds, running]);
 
+  const handleChangeSessionType = (id: number, minutes: string) => {
+    setActiveSessionTypeID(id);
+    setMinutes(minutes);
+    setSeconds("00");
+  };
+
   const startTimer = () => {
     setRunning(true);
 
@@ -44,9 +51,7 @@ const TimerCard = () => {
 
     const timer = setInterval(() => {
       const now = new Date();
-      console.log("tick");
       if (endTime.getTime() - now.getTime() + 1000 < 0) {
-        console.log("done");
         clearInterval(timer);
         setRunning(false);
       } else {
@@ -68,12 +73,18 @@ const TimerCard = () => {
   return (
     <Card className="w-full min-w-fit">
       <CardHeader>
-        <SessionTypeButtonGroup />
+        <SessionTypeButtonGroup
+          activeID={activeSessionTypeID}
+          onClick={handleChangeSessionType}
+          disabled={running}
+        />
       </CardHeader>
       <CardContent>
-        <CardDescription className="pb-2 text-center pointer-events-none">
-          {running ? "Happy focusing!" : "Click to edit timer"}
-        </CardDescription>
+        {!running && (
+          <CardDescription className="pb-2 text-center pointer-events-none">
+            Click to edit timer
+          </CardDescription>
+        )}
         <div
           className={`flex justify-center text-6xl ${
             running && "pointer-events-none"
