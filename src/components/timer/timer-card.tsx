@@ -23,11 +23,14 @@ const TimerCard = () => {
 
   // Handle display updates during minute rollover
   useEffect(() => {
-    if (running && seconds === "-1") {
-      setSeconds("59");
-      setMinutes((minutes) =>
-        getFormattedNumberString(`${parseInt(minutes) - 1}`)
-      );
+    if (running) {
+      if (seconds === "-1") {
+        setSeconds("59");
+        setMinutes((minutes) =>
+          getFormattedNumberString(`${parseInt(minutes) - 1}`)
+        );
+      }
+      document.title = `${minutes}:${seconds}`;
     }
   }, [seconds, running]);
 
