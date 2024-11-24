@@ -10,12 +10,22 @@ interface InputProps extends ComponentPropsWithoutRef<"input"> {
 
 const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
   <input
-    type="text"
-    pattern="[0-9]"
-    maxLength={2}
+    type="number"
+    min="0"
     id={id}
     value={+value < 0 ? "00" : value}
-    onChange={onChange}
+    onKeyDown={(e) => {
+      if (e.key === "-") {
+        e.preventDefault();
+      }
+    }}
+    onChange={(e) => {
+      if (e.target.value.length <= 2) {
+        onChange(e);
+      } else {
+        e.preventDefault();
+      }
+    }}
     onBlur={onBlur}
     className={`max-w-[2ch] text-card-foreground bg-card text-center ${cn}`}
     {...rest}
