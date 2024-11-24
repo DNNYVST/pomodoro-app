@@ -81,4 +81,27 @@ body {
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  @keyframes fadein {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes fadein {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  #breakFadeIn {
+    -webkit-animation: 2s ease 0s normal forwards 1 fadein;
+    animation: 2s ease 0s normal forwards 1 fadein;
+  }
 }

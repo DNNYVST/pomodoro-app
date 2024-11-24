@@ -7,7 +7,6 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Input from "./input";
@@ -16,7 +15,11 @@ import SessionTypeButtonGroup from "./session-type-button-group";
 const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
 
-const TimerCard = () => {
+const TimerCard = ({
+  setOnBreak,
+}: {
+  setOnBreak: (onBreak: boolean) => void;
+}) => {
   const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
   const [minutes, setMinutes] = useState<string>("30");
   const [seconds, setSeconds] = useState<string>("00");
@@ -54,6 +57,7 @@ const TimerCard = () => {
       if (endTime.getTime() - now.getTime() + 1000 < 0) {
         clearInterval(timer);
         setRunning(false);
+        setOnBreak(false);
       } else {
         setSeconds((seconds) =>
           getFormattedNumberString(`${parseInt(seconds) - 1}`)
@@ -62,16 +66,18 @@ const TimerCard = () => {
     }, 1000);
 
     setIntervalID(+timer);
+    setOnBreak(activeSessionTypeID === 3);
   };
 
   const pauseTimer = () => {
     clearInterval(intervalID as number);
     setIntervalID(null);
     setRunning(false);
+    setOnBreak(false);
   };
 
   return (
-    <Card className="w-full min-w-fit">
+    <Card className="w-full min-w-fit shadow-lg z-0">
       <CardHeader>
         <SessionTypeButtonGroup
           activeID={activeSessionTypeID}

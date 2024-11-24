@@ -16,7 +16,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "pomo",
-  description: "Yet another pomo focus app",
+  description: "Not just another pomo focus app",
 };
 
 export default function RootLayout({
