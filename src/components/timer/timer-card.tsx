@@ -78,7 +78,7 @@ const TimerCard = ({
 
   return (
     <Card className="w-full w-fit shadow-lg z-0">
-      <CardHeader className="flex flex-row align-center space-y-0">
+      <CardHeader className="flex gap-x-1 flex-row align-center space-y-0">
         <ThemeToggle />
         <SessionTypeButtonGroup
           activeID={activeSessionTypeID}
