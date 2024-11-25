@@ -5,3 +5,5 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 The intent of this project is to create a simple and beautiful Pomodoro focus app. It will be heavily inspired by https://pomofocus.io which I use all the time and love dearly.
 
 The primary goal of this project is just to practice with different UI libraries such as Radix and shadcn and build cool stuff in React.
+
+Next update: fixing mobile layout (currently, video background is not inline), adding tasks list / storage!
