@@ -10,6 +10,8 @@ const ThemeToggle = () => {
 
   return (
     <Button
+      id="toggle-theme-button"
+      aria-label="toggle theme button"
       variant="ghost"
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

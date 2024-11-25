@@ -12,6 +12,7 @@ const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
   <input
     type="number"
     min="0"
+    max="60"
     id={id}
     value={+value < 0 ? "00" : value}
     placeholder="00"

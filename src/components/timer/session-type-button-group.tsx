@@ -28,12 +28,14 @@ const SessionTypeButtonGroup = ({
       {sessions.map(({ id, text, defaultMinutes }: Session) => (
         <Button
           key={id}
+          id={`${text}-button`}
+          aria-label={text}
           variant="outline"
           onClick={() => onClick(id, defaultMinutes)}
           className={`${activeID !== id && "border-transparent"} ${
             activeID === id && "!opacity-100 hover:bg-background"
           }`}
-          disabled={activeID === id || disabled}
+          aria-disabled={activeID === id || disabled}
         >
           {text}
         </Button>

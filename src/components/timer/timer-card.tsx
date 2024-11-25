@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
@@ -88,18 +87,14 @@ const TimerCard = ({
         />
       </CardHeader>
       <CardContent>
-        {!running && (
-          <CardDescription className="pb-2 text-center pointer-events-none">
-            Click to edit timer
-          </CardDescription>
-        )}
         <div
           className={`flex justify-center text-6xl ${
             running && "pointer-events-none"
           }`}
         >
           <Input
-            id="minutes"
+            id="minutes-input"
+            aria-label="minutes input"
             value={minutes}
             onChange={(e) => setMinutes(e.target.value)}
             onBlur={() =>
@@ -109,7 +104,8 @@ const TimerCard = ({
           />
           {":"}
           <Input
-            id="seconds"
+            id="seconds-input"
+            aria-label="seconds input"
             value={seconds}
             onChange={(e) => setSeconds(e.target.value)}
             onBlur={() =>
@@ -121,10 +117,12 @@ const TimerCard = ({
       </CardContent>
       <CardFooter className="justify-center">
         <Button
+          id="start-pause-button"
+          aria-label="start or pause button"
           variant={running ? "destructive" : "default"}
           className="w-1/2"
           onClick={running ? pauseTimer : startTimer}
-          disabled={
+          aria-disabled={
             !minutes || !seconds || (minutes === "00" && seconds === "00")
           }
         >
