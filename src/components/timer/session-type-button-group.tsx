@@ -24,7 +24,7 @@ const SessionTypeButtonGroup = ({
   disabled,
 }: SessionTypeButtonGroupProps) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex-1 flex justify-center">
       {sessions.map(({ id, text, defaultMinutes }: Session) => (
         <Button
           key={id}

@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
+import ThemeToggle from "@/components/theme-toggle";
 
 const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
@@ -78,7 +79,8 @@ const TimerCard = ({
 
   return (
     <Card className="w-full min-w-fit shadow-lg z-0">
-      <CardHeader>
+      <CardHeader className="flex flex-row align-center space-y-0">
+        <ThemeToggle />
         <SessionTypeButtonGroup
           activeID={activeSessionTypeID}
           onClick={handleChangeSessionType}
