@@ -1,29 +1,33 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import usePrefersReducedMotion from "../app/hooks/use-prefers-reduced-motion";
 
 const BreakBackground = ({ onBreak = false }: { onBreak: boolean }) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
     useRef<HTMLVideoElement>(null),
   ];
 
-  const toggleVideoPlayback = (play: boolean) => {
-    for (const ref of videoRefs) {
-      if (ref.current) {
-        if (play) {
-          ref.current.play();
-        } else {
-          ref.current.pause();
+  useEffect(() => {
+    const toggleVideoPlayback = (play: boolean) => {
+      for (const ref of videoRefs) {
+        if (ref.current) {
+          if (play) {
+            ref.current.play();
+          } else {
+            ref.current.pause();
+          }
         }
       }
-    }
-  };
+    };
 
-  useEffect(() => {
-    toggleVideoPlayback(onBreak);
-  }, [onBreak]);
+    toggleVideoPlayback(onBreak && !prefersReducedMotion);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onBreak, prefersReducedMotion]);
 
+  if (prefersReducedMotion) return null;
   return (
     <div className={`${!onBreak && "hidden"}`}>
       <div
