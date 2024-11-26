@@ -38,6 +38,7 @@ const SessionTypeButtonGroup = ({
             disabled && "text-transparent border-transparent bg-transparent"
           }`}
           aria-disabled={activeID === id || disabled}
+          disabled={disabled}
         >
           {text}
         </Button>
