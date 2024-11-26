@@ -23,17 +23,22 @@ const BreakBackground = ({ onBreak = false }: { onBreak: boolean }) => {
       }
     };
 
-    toggleVideoPlayback(onBreak && !prefersReducedMotion);
+    const timeout = setTimeout(
+      () => toggleVideoPlayback(onBreak && !prefersReducedMotion),
+      onBreak ? 0 : 2000
+    );
+
+    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onBreak, prefersReducedMotion]);
 
   if (prefersReducedMotion) return null;
   return (
-    <div className={`${!onBreak && "hidden"}`}>
-      <div
-        id="breakFadeIn"
-        className="bg-background fixed object-cover w-full h-full pointer-events-none -z-1"
-      />
+    <div
+      className={`pointer-events-none transition-opacity duration-1000 ${
+        !onBreak && "opacity-0"
+      }`}
+    >
       <video
         ref={videoRefs[0]}
         preload="auto"

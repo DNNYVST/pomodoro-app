@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
-import ThemeToggle from "@/components/theme-toggle";
 
 const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
@@ -77,18 +76,21 @@ const TimerCard = ({
   };
 
   return (
-    <Card className="w-full w-fit shadow-lg z-0">
+    <Card
+      className={`w-full w-fit shadow-lg z-0 transition-colors duration-250 ${
+        running && "border-transparent shadow-none"
+      } ${running && activeSessionTypeID === 3 && "bg-transparent"}`}
+    >
       <CardHeader className="flex gap-x-1 flex-row align-center space-y-0">
-        <ThemeToggle />
         <SessionTypeButtonGroup
           activeID={activeSessionTypeID}
           onClick={handleChangeSessionType}
           disabled={running}
         />
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex justify-center">
         <div
-          className={`flex justify-center text-6xl ${
+          className={`flex justify-center text-6xl visible bg-card rounded-lg w-fit px-1 transition-colors duration-250 ${
             running && "pointer-events-none"
           }`}
         >
@@ -120,7 +122,7 @@ const TimerCard = ({
           id="start-pause-button"
           aria-label="start or pause button"
           variant={running ? "destructive" : "default"}
-          className="w-1/2"
+          className="w-1/2 visible"
           onClick={running ? pauseTimer : startTimer}
           aria-disabled={
             !minutes || !seconds || (minutes === "00" && seconds === "00")
