@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import ThemeToggle from "@/components/theme-toggle";
 import BreakBackground from "../components/break-background";
 import TimerCard from "../components/timer/timer-card";
-import ThemeToggle from "@/components/theme-toggle";
+import TaskList from "../components/tasks/task-list";
 
 export default function Home() {
   const [onBreak, setOnBreak] = useState<boolean>(false);
@@ -14,8 +15,9 @@ export default function Home() {
       </span>
       <BreakBackground onBreak={onBreak} />
       <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-8 row-start-2 items-center w-2/5">
+        <main className="flex flex-col gap-8 row-start-2 items-center w-2/5 max-w-2/5 min-w-fit">
           <TimerCard setOnBreak={setOnBreak} />
+          <TaskList />
         </main>
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
           {/* <a

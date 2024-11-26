@@ -77,7 +77,7 @@ const TimerCard = ({
 
   return (
     <Card
-      className={`w-full w-fit shadow-lg z-0 transition-colors duration-250 ${
+      className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-250 ${
         running && "border-transparent shadow-none"
       } ${running && activeSessionTypeID === 3 && "bg-transparent"}`}
     >
