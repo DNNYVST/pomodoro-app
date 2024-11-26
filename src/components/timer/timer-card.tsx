@@ -36,7 +36,7 @@ const TimerCard = ({
       }
       document.title = `${minutes}:${seconds}`;
     }
-  }, [seconds, running]);
+  }, [seconds, minutes, running]);
 
   const handleChangeSessionType = (id: number, minutes: string) => {
     setActiveSessionTypeID(id);

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import BreakBackground from "../components/break-background";
 import TimerCard from "../components/timer/timer-card";
-import { Card, CardContent } from "@/components/ui/card";
 import ThemeToggle from "@/components/theme-toggle";
 
 export default function Home() {
