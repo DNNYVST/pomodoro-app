@@ -120,7 +120,7 @@ const TaskList = () => {
               id="add-new-task-button"
               aria-label="add new task button"
               variant="outline"
-              className={`w-fit px-6 transition-opacity duration-300 ${
+              className={`aria-disabled:border-dashed w-fit px-6 transition-opacity duration-300 ${
                 running && "!opacity-0"
               }`}
               onClick={() => {
