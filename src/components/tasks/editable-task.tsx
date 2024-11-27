@@ -89,7 +89,7 @@ const EditableTask = ({
                 id="save-edited-task-text-button"
                 aria-label="save edited task text button"
                 variant="ghost"
-                className="ml-auto transition-opacity duration-300"
+                className="transition-opacity duration-300"
                 aria-disabled={completed || !editedText.trim()}
                 onClick={() => {
                   setText(id, editedText.trim());
@@ -104,7 +104,7 @@ const EditableTask = ({
                 id="edit-task-text-button"
                 aria-label="edit task text button"
                 variant="ghost"
-                className="ml-auto transition-opacity duration-300"
+                className="transition-opacity duration-300"
                 aria-disabled={completed}
                 onClick={() => setEditMode((editMode) => !editMode)}
               >
