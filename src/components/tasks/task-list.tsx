@@ -101,7 +101,12 @@ const TaskList = () => {
                 addTask(newTaskText.trim());
                 setNewTaskText("");
                 document?.getElementById("add-new-task-input")?.blur();
-                document?.getElementById("task-list")?.scrollIntoView({
+                const y =
+                  document
+                    ?.getElementById("add-new-task-input")
+                    ?.getBoundingClientRect()?.top || 0 + window?.scrollY;
+                window?.scrollTo({
+                  top: y,
                   behavior: prefersReducedMotion ? "auto" : "smooth",
                 });
               }
@@ -127,7 +132,6 @@ const TaskList = () => {
           </Button>
         </span>
       </CardContent>
-      <CardFooter></CardFooter>
     </Card>
   );
 };
