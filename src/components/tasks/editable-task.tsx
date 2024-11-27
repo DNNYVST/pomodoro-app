@@ -4,7 +4,14 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Square, SquareCheck, Pencil, PencilOff, Save, X } from "lucide-react";
+import {
+  Square,
+  SquareCheckBig,
+  Pencil,
+  PencilOff,
+  Save,
+  X,
+} from "lucide-react";
 import { Task } from "./types";
 
 interface EditableTaskProps extends Task {
@@ -31,6 +38,8 @@ const EditableTask = ({
       <CardContent className="p-2">
         <div className="flex flex-row items-center gap-x-2">
           <Button
+            id={`toggle-task${id}-completed-button`}
+            aria-label="toggle task completed button"
             variant="ghost"
             className={`transition-opacity duration-300 ${
               completed && "opacity-50"
@@ -40,7 +49,8 @@ const EditableTask = ({
             }
             aria-disabled={editMode}
           >
-            {completed ? <SquareCheck /> : <Square />}
+            {completed ? <SquareCheckBig /> : <Square />}
+            <span className="sr-only">Toggle task completed</span>
           </Button>
           <span className="flex flex-1 text-wrap w-min">
             {editMode ? (
@@ -73,35 +83,46 @@ const EditableTask = ({
               </span>
             )}
           </span>
-          {editMode ? (
+          <span>
+            {editMode ? (
+              <Button
+                id="save-edited-task-text-button"
+                aria-label="save edited task text button"
+                variant="ghost"
+                className="ml-auto transition-opacity duration-300"
+                aria-disabled={completed || !editedText.trim()}
+                onClick={() => {
+                  setText(id, editedText.trim());
+                  setEditMode(false);
+                }}
+              >
+                <Save />
+                <span className="sr-only">Save task</span>
+              </Button>
+            ) : (
+              <Button
+                id="edit-task-text-button"
+                aria-label="edit task text button"
+                variant="ghost"
+                className="ml-auto transition-opacity duration-300"
+                aria-disabled={completed}
+                onClick={() => setEditMode((editMode) => !editMode)}
+              >
+                {completed ? <PencilOff /> : <Pencil />}
+                <span className="sr-only">Edit task</span>
+              </Button>
+            )}
             <Button
+              id="delete-task-button"
+              aria-label="delete task button"
               variant="ghost"
-              className="ml-auto transition-opacity duration-300"
-              aria-disabled={completed || !editedText.trim()}
-              onClick={() => {
-                setText(id, editedText.trim());
-                setEditMode(false);
-              }}
+              className="ml-auto"
+              onClick={() => deleteTask(id)}
             >
-              <Save />
+              <X />
+              <span className="sr-only">Delete task</span>
             </Button>
-          ) : (
-            <Button
-              variant="ghost"
-              className="ml-auto transition-opacity duration-300"
-              aria-disabled={completed}
-              onClick={() => setEditMode((editMode) => !editMode)}
-            >
-              {completed ? <PencilOff /> : <Pencil />}
-            </Button>
-          )}
-          <Button
-            variant="ghost"
-            className="ml-auto"
-            onClick={() => deleteTask(id)}
-          >
-            <X />
-          </Button>
+          </span>
         </div>
       </CardContent>
     </Card>

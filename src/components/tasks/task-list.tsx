@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import EditableTask from "./editable-task";
-import { ListPlus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Task } from "./types";
 
 const TaskList = () => {
@@ -68,8 +68,8 @@ const TaskList = () => {
             id="add-new-task-input"
             aria-label="add new task input"
             value={newTaskText}
-            className="placeholder:italic border-dashed py-2 text-center"
-            placeholder="add new task . . ."
+            className="border-dashed py-2 text-center"
+            placeholder="add task"
             onChange={(e) => setNewTaskText(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !!newTaskText.trim()) {
@@ -79,15 +79,18 @@ const TaskList = () => {
             }}
           />
           <Button
+            id="add-new-task-button"
+            aria-label="add new task button"
             variant="outline"
-            className="w-fit"
+            className="w-fit px-6 aria-disabled:border-dashed"
             onClick={() => {
               addTask(newTaskText.trim());
               setNewTaskText("");
             }}
             aria-disabled={!newTaskText.trim()}
           >
-            <ListPlus />
+            <Plus />
+            <span className="sr-only">Add new task</span>
           </Button>
         </span>
       </CardContent>
