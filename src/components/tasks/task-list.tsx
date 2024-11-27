@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useEffect, useContext } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import EditableTask from "./editable-task";
@@ -15,20 +9,17 @@ import { Plus } from "lucide-react";
 import { Task } from "./types";
 import { TimerContext } from "@/components/timer-provider";
 import usePrefersReducedMotion from "@/app/hooks/use-prefers-reduced-motion";
+import useLocalStorage from "@/app/hooks/use-local-storage";
 
 const TaskList = () => {
-  const { running, onBreak } = useContext(TimerContext);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { running, onBreak } = useContext(TimerContext);
+  const {
+    value: tasks,
+    setValue: setTasks,
+    loading,
+  } = useLocalStorage("tasks", [] as Task[]);
   const [newTaskText, setNewTaskText] = useState<string>("");
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, text: "first task", status: "todo" },
-    { id: 2, text: "second task", status: "todo" },
-    {
-      id: 3,
-      text: "third task",
-      status: "completed",
-    },
-  ]);
 
   // abandon in-progress edits if the timer starts
   useEffect(() => {
@@ -76,61 +67,71 @@ const TaskList = () => {
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         <ul className="flex flex-col gap-y-2">
-          {tasks.map((task) => (
-            <EditableTask
-              key={task.id}
-              {...task}
-              setStatus={setStatus}
-              setText={setText}
-              deleteTask={deleteTask}
-            />
-          ))}
+          {loading ? (
+            <div className="text-center animate-pulse">
+              Loading your tasks...
+            </div>
+          ) : (
+            <>
+              {tasks.map((task) => (
+                <EditableTask
+                  key={task.id}
+                  {...task}
+                  setStatus={setStatus}
+                  setText={setText}
+                  deleteTask={deleteTask}
+                />
+              ))}
+            </>
+          )}
         </ul>
-        <span className="flex gap-x-2">
-          <Input
-            id="add-new-task-input"
-            aria-label="add new task input"
-            value={newTaskText}
-            className={`border-dashed py-2 text-center transition-opacity duration-300 ${
-              running && "!opacity-0"
-            }`}
-            placeholder="add task"
-            onChange={(e) => setNewTaskText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !!newTaskText.trim()) {
+        {!loading && (
+          <span className="flex gap-x-2">
+            <Input
+              id="add-new-task-input"
+              aria-label="add new task input"
+              value={newTaskText}
+              className={`border-dashed py-2 text-center transition-opacity duration-300 ${
+                running && "!opacity-0"
+              }`}
+              placeholder="add task"
+              onChange={(e) => setNewTaskText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !!newTaskText.trim()) {
+                  addTask(newTaskText.trim());
+                  setNewTaskText("");
+                  document?.getElementById("add-new-task-input")?.blur();
+                  const y =
+                    document
+                      ?.getElementById("add-new-task-input")
+                      ?.getBoundingClientRect()?.top || 0 + window?.scrollY;
+                  window?.scrollTo({
+                    top: y,
+                    behavior: prefersReducedMotion ? "auto" : "smooth",
+                  });
+                }
+              }}
+              disabled={running}
+            />
+            <Button
+              id="add-new-task-button"
+              aria-label="add new task button"
+              variant="outline"
+              className={`w-fit px-6 transition-opacity duration-300 ${
+                running && "!opacity-0"
+              }`}
+              onClick={() => {
                 addTask(newTaskText.trim());
                 setNewTaskText("");
-                document?.getElementById("add-new-task-input")?.blur();
-                const y =
-                  document
-                    ?.getElementById("add-new-task-input")
-                    ?.getBoundingClientRect()?.top || 0 + window?.scrollY;
-                window?.scrollTo({
-                  top: y,
-                  behavior: prefersReducedMotion ? "auto" : "smooth",
-                });
-              }
-            }}
-            disabled={running}
-          />
-          <Button
-            id="add-new-task-button"
-            aria-label="add new task button"
-            variant="outline"
-            className={`w-fit px-6 transition-opacity duration-300 ${
-              running && "!opacity-0"
-            }`}
-            onClick={() => {
-              addTask(newTaskText.trim());
-              setNewTaskText("");
-            }}
-            aria-disabled={!newTaskText.trim()}
-            disabled={running}
-          >
-            <Plus />
-            <span className="sr-only">Add new task</span>
-          </Button>
-        </span>
+              }}
+              aria-disabled={!newTaskText.trim()}
+              disabled={running}
+            >
+              <Plus />
+              <span className="sr-only">Add new task</span>
+            </Button>
+          </span>
+        )}
       </CardContent>
     </Card>
   );
