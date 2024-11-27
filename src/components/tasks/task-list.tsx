@@ -23,8 +23,8 @@ const TaskList = () => {
     { id: 2, text: "second task", status: "todo" },
     {
       id: 3,
-      text: "third task and this one is super long and i want to see what happens if it's even longer",
-      status: "todo",
+      text: "third task",
+      status: "completed",
     },
   ]);
 

@@ -63,6 +63,7 @@ const EditableTask = ({
               setStatus(id, status === "todo" ? "completed" : "todo")
             }
             aria-disabled={editMode}
+            disabled={running}
           >
             {completed ? <SquareCheckBig /> : <Square />}
             <span className="sr-only">Toggle task completed</span>
@@ -104,11 +105,12 @@ const EditableTask = ({
                 id="save-edited-task-text-button"
                 aria-label="save edited task text button"
                 variant="ghost"
-                aria-disabled={completed || !editedText.trim()}
                 onClick={() => {
                   setText(id, editedText.trim());
                   setEditMode(false);
                 }}
+                aria-disabled={completed || !editedText.trim()}
+                disabled={running}
               >
                 <Save />
                 <span className="sr-only">Save task</span>
@@ -119,8 +121,9 @@ const EditableTask = ({
                 aria-label="edit task text button"
                 variant="ghost"
                 className="transition-opacity duration-300"
-                aria-disabled={completed}
                 onClick={() => setEditMode((editMode) => !editMode)}
+                aria-disabled={completed}
+                disabled={running}
               >
                 {completed ? <PencilOff /> : <Pencil />}
                 <span className="sr-only">Edit task</span>
@@ -132,6 +135,7 @@ const EditableTask = ({
               variant="ghost"
               className="ml-auto transition-opacity duration-300"
               onClick={() => deleteTask(id)}
+              disabled={running}
             >
               <X />
               <span className="sr-only">Delete task</span>
