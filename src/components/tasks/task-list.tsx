@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import EditableTask from "./editable-task";
-import { Plus } from "lucide-react";
+import { CloudDownload, Plus } from "lucide-react";
 import { Task } from "./types";
 import { TimerContext } from "@/components/timer-provider";
 import usePrefersReducedMotion from "@/app/hooks/use-prefers-reduced-motion";
@@ -68,7 +68,10 @@ const TaskList = () => {
       <CardContent className="flex flex-col gap-y-2">
         <ul className="flex flex-col gap-y-2">
           {loading ? (
-            <div className="text-center animate-pulse">
+            <div className="flex justify-center gap-x-2">
+              <span className="motion-safe:animate-bounce">
+                <CloudDownload />
+              </span>
               Loading your tasks...
             </div>
           ) : (
