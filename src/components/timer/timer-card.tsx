@@ -100,7 +100,9 @@ const TimerCard = () => {
             value={+minutes < 0 ? "00" : minutes}
             onChange={(e) => setMinutes(e.target.value)}
             onBlur={() =>
-              setMinutes((minutes) => getFormattedNumberString(minutes || "00"))
+              setMinutes((minutes) =>
+                getFormattedNumberString(+minutes > 60 ? "60" : minutes || "00")
+              )
             }
             disabled={running}
             cn="!bg-transparent"
@@ -112,7 +114,11 @@ const TimerCard = () => {
             value={+seconds < 0 ? "00" : seconds}
             onChange={(e) => setSeconds(e.target.value)}
             onBlur={() =>
-              setSeconds((seconds) => getFormattedNumberString(seconds || "00"))
+              setSeconds((seconds) =>
+                getFormattedNumberString(
+                  (+seconds > 59 ? "59" : seconds) || "00"
+                )
+              )
             }
             disabled={running}
             cn="!bg-transparent"
