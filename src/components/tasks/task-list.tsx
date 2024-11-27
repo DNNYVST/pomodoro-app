@@ -72,8 +72,8 @@ const TaskList = () => {
             placeholder="add new task . . ."
             onChange={(e) => setNewTaskText(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter" && newTaskText.trim()) {
-                addTask(newTaskText);
+              if (e.key === "Enter" && !!newTaskText.trim()) {
+                addTask(newTaskText.trim());
                 setNewTaskText("");
               }
             }}
@@ -82,7 +82,7 @@ const TaskList = () => {
             variant="outline"
             className="w-fit"
             onClick={() => {
-              addTask(newTaskText);
+              addTask(newTaskText.trim());
               setNewTaskText("");
             }}
             aria-disabled={!newTaskText.trim()}

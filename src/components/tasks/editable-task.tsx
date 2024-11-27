@@ -45,16 +45,27 @@ const EditableTask = ({
           <span className="flex flex-1 text-wrap w-min">
             {editMode ? (
               <Input
-                id="edit-task-text-input"
+                id={`edit-task${id}-text-input`}
                 aria-label="edit-task-text-input"
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="bg-card w-full"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !!editedText.trim()) {
+                    setText(id, editedText.trim());
+                    setEditMode(false);
+                  }
+                  if (e.key === "Escape") {
+                    setEditedText(text);
+                    setEditMode(false);
+                  }
+                }}
+                className="bg-card w-full border-dashed"
                 placeholder="Edit task . . ."
+                autoFocus
               />
             ) : (
               <span
-                className={`pl-3 transition-opacity duration-300 ${
+                className={`pl-3 transition-opacity duration-300 border border-transparent ${
                   completed && "opacity-50 line-through"
                 }`}
               >
@@ -66,9 +77,9 @@ const EditableTask = ({
             <Button
               variant="ghost"
               className="ml-auto transition-opacity duration-300"
-              aria-disabled={completed}
+              aria-disabled={completed || !editedText.trim()}
               onClick={() => {
-                setText(id, editedText);
+                setText(id, editedText.trim());
                 setEditMode(false);
               }}
             >
