@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ import {
   Save,
   X,
 } from "lucide-react";
+import { TimerContext } from "@/components/timer-provider";
+
 import { Task } from "./types";
 
 interface EditableTaskProps extends Task {
@@ -28,13 +30,26 @@ const EditableTask = ({
   setText,
   deleteTask,
 }: EditableTaskProps) => {
+  const { running, onBreak } = useContext(TimerContext);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [editedText, setEditedText] = useState<string>(text);
 
   const completed = status === "completed";
 
+  // abandon in-progress edits if the timer starts
+  useEffect(() => {
+    if (running) {
+      setEditedText(text);
+      setEditMode(false);
+    }
+  }, [running]);
+
   return (
-    <Card className="items-center">
+    <Card
+      className={`items-center transition-colors duration-300 ${
+        running && "border-transparent shadow-none text-transparent"
+      } ${onBreak && "bg-transparent"}`}
+    >
       <CardContent className="p-2">
         <div className="flex flex-row items-center gap-x-2">
           <Button
@@ -89,7 +104,6 @@ const EditableTask = ({
                 id="save-edited-task-text-button"
                 aria-label="save edited task text button"
                 variant="ghost"
-                className="transition-opacity duration-300"
                 aria-disabled={completed || !editedText.trim()}
                 onClick={() => {
                   setText(id, editedText.trim());
@@ -116,7 +130,7 @@ const EditableTask = ({
               id="delete-task-button"
               aria-label="delete task button"
               variant="ghost"
-              className="ml-auto"
+              className="ml-auto transition-opacity duration-300"
               onClick={() => deleteTask(id)}
             >
               <X />

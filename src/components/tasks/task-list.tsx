@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -13,8 +13,10 @@ import { Input } from "@/components/ui/input";
 import EditableTask from "./editable-task";
 import { Plus } from "lucide-react";
 import { Task } from "./types";
+import { TimerContext } from "@/components/timer-provider";
 
 const TaskList = () => {
+  const { running, onBreak } = useContext(TimerContext);
   const [newTaskText, setNewTaskText] = useState<string>("");
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, text: "first task", status: "todo" },
@@ -47,11 +49,17 @@ const TaskList = () => {
   };
 
   return (
-    <Card className="w-full shadow-lg z-0">
+    <Card
+      className={`w-full shadow-lg z-0 transition-colors duration-300 ${
+        running && "border-transparent shadow-none text-transparent"
+      } ${onBreak && "bg-transparent"}`}
+    >
       <CardHeader>
         <CardTitle>Tasks</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-y-2">
+      <CardContent
+        className={`flex flex-col gap-y-2 ${running && "text-transparent"}`}
+      >
         <ul className="flex flex-col gap-y-2">
           {tasks.map((task) => (
             <EditableTask
@@ -68,7 +76,10 @@ const TaskList = () => {
             id="add-new-task-input"
             aria-label="add new task input"
             value={newTaskText}
-            className="border-dashed py-2 text-center"
+            className={`border-dashed py-2 text-center transition-opacity transition-opacity duration-300 ${
+              running &&
+              "placeholder:text-transparent text-transparent border-transparent bg-transparent"
+            }`}
             placeholder="add task"
             onChange={(e) => setNewTaskText(e.target.value)}
             onKeyDown={(e) => {
@@ -77,17 +88,22 @@ const TaskList = () => {
                 setNewTaskText("");
               }
             }}
+            disabled={running}
           />
           <Button
             id="add-new-task-button"
             aria-label="add new task button"
             variant="outline"
-            className="w-fit px-6 aria-disabled:border-dashed"
+            className={`w-fit px-6 aria-disabled:border-dashed transition-opacity duration-300 ${
+              running &&
+              "placeholder:text-transparent text-transparent border-transparent bg-transparent"
+            }`}
             onClick={() => {
               addTask(newTaskText.trim());
               setNewTaskText("");
             }}
             aria-disabled={!newTaskText.trim()}
+            disabled={running}
           >
             <Plus />
             <span className="sr-only">Add new task</span>
