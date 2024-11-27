@@ -86,6 +86,7 @@ const TaskList = () => {
               if (e.key === "Enter" && !!newTaskText.trim()) {
                 addTask(newTaskText.trim());
                 setNewTaskText("");
+                document?.getElementById("add-new-task-input")?.blur();
               }
             }}
             disabled={running}
