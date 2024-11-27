@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -24,6 +24,7 @@ const TimerCard = ({
   const [seconds, setSeconds] = useState<string>("00");
   const [intervalID, setIntervalID] = useState<number | null>(null);
   const [running, setRunning] = useState<boolean>(false);
+  const timerBackgroundRef = useRef<HTMLDivElement>(null);
 
   // Handle display updates during minute rollover
   useEffect(() => {
@@ -75,6 +76,8 @@ const TimerCard = ({
     setOnBreak(false);
   };
 
+  const playPauseButtonWidth = timerBackgroundRef?.current?.offsetWidth || 187;
+
   return (
     <Card
       className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-300 ${
@@ -90,6 +93,7 @@ const TimerCard = ({
       </CardHeader>
       <CardContent className="flex justify-center">
         <div
+          ref={timerBackgroundRef}
           className={`flex justify-center text-6xl visible bg-card rounded-lg w-fit px-1 transition-colors duration-300 ${
             running && "pointer-events-none"
           }`}
@@ -122,11 +126,12 @@ const TimerCard = ({
           id="start-pause-button"
           aria-label="start or pause button"
           variant={running ? "destructive" : "default"}
-          className="w-1/2 visible"
           onClick={running ? pauseTimer : startTimer}
           aria-disabled={
             !minutes || !seconds || (minutes === "00" && seconds === "00")
           }
+          className="visible"
+          style={{ width: playPauseButtonWidth }}
         >
           {running ? "Pause" : "Start"}
         </Button>
