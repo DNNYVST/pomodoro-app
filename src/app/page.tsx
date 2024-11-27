@@ -7,7 +7,7 @@ import { TimerProvider } from "../components/timer-provider";
 export default function Home() {
   return (
     <TimerProvider>
-      <span className="fixed p-4">
+      <span className="fixed p-4 z-50">
         <ThemeToggle />
       </span>
       <BreakBackground />

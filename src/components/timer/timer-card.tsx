@@ -90,8 +90,8 @@ const TimerCard = () => {
       <CardContent className="flex justify-center">
         <div
           ref={timerBackgroundRef}
-          className={`flex justify-center text-6xl visible bg-card rounded-lg w-fit px-1 transition-colors duration-300 ${
-            running && "pointer-events-none"
+          className={`flex justify-center text-6xl visible bg-transparent rounded-lg w-fit px-1 transition-colors duration-300 ${
+            running && "pointer-events-none !bg-card"
           }`}
         >
           <Input
@@ -103,6 +103,7 @@ const TimerCard = () => {
               setMinutes((minutes) => getFormattedNumberString(minutes || "00"))
             }
             disabled={running}
+            cn="!bg-transparent"
           />
           {":"}
           <Input
@@ -114,6 +115,7 @@ const TimerCard = () => {
               setSeconds((seconds) => getFormattedNumberString(seconds || "00"))
             }
             disabled={running}
+            cn="!bg-transparent"
           />
         </div>
       </CardContent>
