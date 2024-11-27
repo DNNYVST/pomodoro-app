@@ -51,7 +51,7 @@ const TaskList = () => {
   return (
     <Card
       className={`w-full shadow-lg z-0 transition-colors duration-300 ${
-        running && "border-transparent shadow-none text-transparent"
+        running && "border-transparent shadow-none text-transparent select-none"
       } ${onBreak && "bg-transparent"}`}
     >
       <CardHeader>

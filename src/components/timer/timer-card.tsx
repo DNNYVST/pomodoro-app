@@ -78,7 +78,7 @@ const TimerCard = () => {
   return (
     <Card
       className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-300 ${
-        running && "border-transparent shadow-none"
+        running && "border-transparent shadow-none select-none"
       } ${onBreak && "bg-transparent"}`}
     >
       <CardHeader className="flex gap-x-1 flex-row align-center space-y-0">

@@ -48,6 +48,7 @@ const BreakBackground = () => {
         muted
         loop
         playsInline
+        disablePictureInPicture
         className="fixed object-cover w-[100vw] h-[100vh] ml-[-50%] z-[-1]"
       >
         <source src="/clouds.mp4" type="video/mp4" />
@@ -58,6 +59,7 @@ const BreakBackground = () => {
         muted
         loop
         playsInline
+        disablePictureInPicture
         className="fixed object-cover w-[100vw] h-[100vh] z-[-2]"
       >
         <source src="/daisies.mp4" type="video/mp4" />
