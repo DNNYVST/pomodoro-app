@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { OnBreakProvider } from "@/components/on-break-provider";
 import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = localFont({
@@ -36,7 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <OnBreakProvider>{children}</OnBreakProvider>
         </ThemeProvider>
         <Analytics />
       </body>

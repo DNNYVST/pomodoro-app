@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -10,15 +10,13 @@ import {
 import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
+import { OnBreakContext } from "@/components/on-break-provider";
 
 const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
 
-const TimerCard = ({
-  setOnBreak,
-}: {
-  setOnBreak: (onBreak: boolean) => void;
-}) => {
+const TimerCard = () => {
+  const { onBreak, setOnBreak } = useContext(OnBreakContext);
   const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
   const [minutes, setMinutes] = useState<string>("30");
   const [seconds, setSeconds] = useState<string>("00");
@@ -82,7 +80,7 @@ const TimerCard = ({
     <Card
       className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-300 ${
         running && "border-transparent shadow-none"
-      } ${running && activeSessionTypeID === 3 && "bg-transparent"}`}
+      } ${onBreak && "bg-transparent"}`}
     >
       <CardHeader className="flex gap-x-1 flex-row align-center space-y-0">
         <SessionTypeButtonGroup

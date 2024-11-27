@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useContext, useRef } from "react";
 import usePrefersReducedMotion from "../app/hooks/use-prefers-reduced-motion";
+import { OnBreakContext } from "../components/on-break-provider";
 
-const BreakBackground = ({ onBreak = false }: { onBreak: boolean }) => {
+const BreakBackground = () => {
+  const { onBreak } = useContext(OnBreakContext);
+
   const prefersReducedMotion = usePrefersReducedMotion();
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
