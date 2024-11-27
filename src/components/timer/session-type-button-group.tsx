@@ -32,7 +32,7 @@ const SessionTypeButtonGroup = ({
           aria-label={text}
           variant="outline"
           onClick={() => onClick(id, defaultMinutes)}
-          className={`transition-colors duration-250 ${
+          className={`transition-colors duration-300 ${
             activeID !== id && "border-transparent"
           } ${activeID === id && "!opacity-100 hover:bg-background"} ${
             disabled && "text-transparent border-transparent bg-transparent"

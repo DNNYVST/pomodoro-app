@@ -4,7 +4,7 @@ interface InputProps extends ComponentPropsWithoutRef<"input"> {
   id: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onBlur: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: ChangeEventHandler<HTMLInputElement>;
   cn?: string;
 }
 
@@ -14,7 +14,7 @@ const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
     min="0"
     max="60"
     id={id}
-    value={+value < 0 ? "00" : value}
+    value={value}
     placeholder="00"
     onKeyDown={(e) => {
       if (e.key === "-") {

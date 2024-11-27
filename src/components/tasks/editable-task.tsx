@@ -1,10 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Square, SquareCheck, Pencil, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Square, SquareCheck, Pencil, PencilOff, Save, X } from "lucide-react";
 import { Task } from "./types";
 
 interface EditableTaskProps extends Task {
   setStatus: (id: number, status: string) => void;
+  setText: (id: number, text: string) => void;
   deleteTask: (id: number) => void;
 }
 
@@ -13,36 +18,72 @@ const EditableTask = ({
   text,
   status,
   setStatus,
+  setText,
   deleteTask,
 }: EditableTaskProps) => {
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [editedText, setEditedText] = useState<string>(text);
+
   const completed = status === "completed";
 
   return (
     <Card className="items-center">
-      <CardContent
-        className={`transition-opacity duration-300 p-2 ${
-          completed && "opacity-50"
-        }`}
-      >
+      <CardContent className="p-2">
         <div className="flex flex-row items-center gap-x-2">
           <Button
             variant="ghost"
+            className={`transition-opacity duration-300 ${
+              completed && "opacity-50"
+            }`}
             onClick={() =>
               setStatus(id, status === "todo" ? "completed" : "todo")
             }
+            aria-disabled={editMode}
           >
             {completed ? <SquareCheck /> : <Square />}
           </Button>
-          <span
-            className={`transition-colors duration-300 decoration-transparent line-through flex w-min flex-1 text-wrap ${
-              completed && "decoration-inherit"
-            }`}
-          >
-            {text}
+          <span className="flex flex-1 text-wrap w-min">
+            {editMode ? (
+              <Input
+                id="edit-task-text-input"
+                aria-label="edit-task-text-input"
+                value={editedText}
+                onChange={(e) => setEditedText(e.target.value)}
+                className="bg-card w-full"
+                placeholder="Edit task . . ."
+              />
+            ) : (
+              <span
+                className={`pl-3 transition-opacity duration-300 ${
+                  completed && "opacity-50 line-through"
+                }`}
+              >
+                {text}
+              </span>
+            )}
           </span>
-          <Button variant="ghost" className="ml-auto" aria-disabled={completed}>
-            <Pencil />
-          </Button>
+          {editMode ? (
+            <Button
+              variant="ghost"
+              className="ml-auto transition-opacity duration-300"
+              aria-disabled={completed}
+              onClick={() => {
+                setText(id, editedText);
+                setEditMode(false);
+              }}
+            >
+              <Save />
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              className="ml-auto transition-opacity duration-300"
+              aria-disabled={completed}
+              onClick={() => setEditMode((editMode) => !editMode)}
+            >
+              {completed ? <PencilOff /> : <Pencil />}
+            </Button>
+          )}
           <Button
             variant="ghost"
             className="ml-auto"

@@ -11,9 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import EditableTask from "./editable-task";
+import { ListPlus } from "lucide-react";
 import { Task } from "./types";
 
 const TaskList = () => {
+  const [newTaskText, setNewTaskText] = useState<string>("");
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, text: "first task", status: "todo" },
     { id: 2, text: "second task", status: "todo" },
@@ -24,9 +26,19 @@ const TaskList = () => {
     },
   ]);
 
+  const addTask = (text: string) => {
+    setTasks((tasks) => [...tasks, { id: Date.now(), text, status: "todo" }]);
+  };
+
   const setStatus = (id: number, status: string) => {
     setTasks((tasks) =>
       tasks.map((task) => (task.id === id ? { ...task, status } : task))
+    );
+  };
+
+  const setText = (id: number, text: string) => {
+    setTasks((tasks) =>
+      tasks.map((task) => (task.id === id ? { ...task, text } : task))
     );
   };
 
@@ -35,38 +47,49 @@ const TaskList = () => {
   };
 
   return (
-    <Card className="w-full shadow-lg z-0 transition-colors duration-250">
+    <Card className="w-full shadow-lg z-0">
       <CardHeader>
         <CardTitle>Tasks</CardTitle>
-        {/* <pre>{JSON.stringify(tasks, null, 2)}</pre> */}
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
-        <Button
-          className="w-full border-dashed"
-          variant="outline"
-          onClick={() =>
-            setTasks((tasks) => [
-              ...tasks,
-              { id: Date.now(), text: "new task", status: "" },
-            ])
-          }
-        >
-          Click to add task
-        </Button>
-        {/* <Input
-          className="placeholder:italic border-dashed py-2"
-          placeholder="add new task . . ."
-        /> */}
         <ul className="flex flex-col gap-y-2">
           {tasks.map((task) => (
             <EditableTask
               key={task.id}
               {...task}
               setStatus={setStatus}
+              setText={setText}
               deleteTask={deleteTask}
             />
           ))}
         </ul>
+        <span className="flex gap-x-2">
+          <Input
+            id="add-new-task-input"
+            aria-label="add new task input"
+            value={newTaskText}
+            className="placeholder:italic border-dashed py-2 text-center"
+            placeholder="add new task . . ."
+            onChange={(e) => setNewTaskText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && newTaskText.trim()) {
+                addTask(newTaskText);
+                setNewTaskText("");
+              }
+            }}
+          />
+          <Button
+            variant="outline"
+            className="w-fit"
+            onClick={() => {
+              addTask(newTaskText);
+              setNewTaskText("");
+            }}
+            aria-disabled={!newTaskText.trim()}
+          >
+            <ListPlus />
+          </Button>
+        </span>
       </CardContent>
       <CardFooter></CardFooter>
     </Card>

@@ -77,7 +77,7 @@ const TimerCard = ({
 
   return (
     <Card
-      className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-250 ${
+      className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-300 ${
         running && "border-transparent shadow-none"
       } ${running && activeSessionTypeID === 3 && "bg-transparent"}`}
     >
@@ -90,14 +90,14 @@ const TimerCard = ({
       </CardHeader>
       <CardContent className="flex justify-center">
         <div
-          className={`flex justify-center text-6xl visible bg-card rounded-lg w-fit px-1 transition-colors duration-250 ${
+          className={`flex justify-center text-6xl visible bg-card rounded-lg w-fit px-1 transition-colors duration-300 ${
             running && "pointer-events-none"
           }`}
         >
           <Input
             id="minutes-input"
             aria-label="minutes input"
-            value={minutes}
+            value={+minutes < 0 ? "00" : minutes}
             onChange={(e) => setMinutes(e.target.value)}
             onBlur={() =>
               setMinutes((minutes) => getFormattedNumberString(minutes || "00"))
@@ -108,7 +108,7 @@ const TimerCard = ({
           <Input
             id="seconds-input"
             aria-label="seconds input"
-            value={seconds}
+            value={+seconds < 0 ? "00" : seconds}
             onChange={(e) => setSeconds(e.target.value)}
             onBlur={() =>
               setSeconds((seconds) => getFormattedNumberString(seconds || "00"))
