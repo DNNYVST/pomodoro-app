@@ -10,18 +10,17 @@ import {
 import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
-import { OnBreakContext } from "@/components/on-break-provider";
+import { TimerContext } from "@/components/timer-provider";
 
 const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
 
 const TimerCard = () => {
-  const { onBreak, setOnBreak } = useContext(OnBreakContext);
+  const { running, setRunning, onBreak, setOnBreak } = useContext(TimerContext);
   const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
   const [minutes, setMinutes] = useState<string>("30");
   const [seconds, setSeconds] = useState<string>("00");
   const [intervalID, setIntervalID] = useState<number | null>(null);
-  const [running, setRunning] = useState<boolean>(false);
   const timerBackgroundRef = useRef<HTMLDivElement>(null);
 
   // Handle display updates during minute rollover
@@ -86,7 +85,6 @@ const TimerCard = () => {
         <SessionTypeButtonGroup
           activeID={activeSessionTypeID}
           onClick={handleChangeSessionType}
-          disabled={running}
         />
       </CardHeader>
       <CardContent className="flex justify-center">

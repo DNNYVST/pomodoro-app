@@ -2,14 +2,11 @@ import ThemeToggle from "../components/theme-toggle";
 import BreakBackground from "../components/break-background";
 import TimerCard from "../components/timer/timer-card";
 import TaskList from "../components/tasks/task-list";
-import {
-  OnBreakContext,
-  OnBreakProvider,
-} from "../components/on-break-provider";
+import { TimerProvider } from "../components/timer-provider";
 
 export default function Home() {
   return (
-    <OnBreakProvider>
+    <TimerProvider>
       <span className="fixed p-4">
         <ThemeToggle />
       </span>
@@ -67,6 +64,6 @@ export default function Home() {
           </a> */}
         </footer>
       </div>
-    </OnBreakProvider>
+    </TimerProvider>
   );
 }

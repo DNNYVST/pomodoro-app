@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { OnBreakProvider } from "@/components/on-break-provider";
+import { TimerProvider } from "@/components/timer-provider";
 import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = localFont({
@@ -37,7 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <OnBreakProvider>{children}</OnBreakProvider>
+          <TimerProvider>{children}</TimerProvider>
         </ThemeProvider>
         <Analytics />
       </body>

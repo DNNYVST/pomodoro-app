@@ -2,10 +2,10 @@
 
 import { useEffect, useContext, useRef } from "react";
 import usePrefersReducedMotion from "../app/hooks/use-prefers-reduced-motion";
-import { OnBreakContext } from "../components/on-break-provider";
+import { TimerContext } from "./timer-provider";
 
 const BreakBackground = () => {
-  const { onBreak } = useContext(OnBreakContext);
+  const { onBreak } = useContext(TimerContext);
 
   const prefersReducedMotion = usePrefersReducedMotion();
   const videoRefs = [

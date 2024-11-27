@@ -1,3 +1,7 @@
+"use client";
+
+import { useContext } from "react";
+import { TimerContext } from "@/components/timer-provider";
 import { Button } from "@/components/ui/button";
 
 type Session = {
@@ -9,7 +13,6 @@ type Session = {
 interface SessionTypeButtonGroupProps {
   activeID: number;
   onClick: (id: number, minutes: string) => void;
-  disabled: boolean;
 }
 
 const sessions: Session[] = [
@@ -21,8 +24,9 @@ const sessions: Session[] = [
 const SessionTypeButtonGroup = ({
   activeID,
   onClick,
-  disabled,
 }: SessionTypeButtonGroupProps) => {
+  const { running } = useContext(TimerContext);
+
   return (
     <div className="flex-1 gap-x-1 flex justify-center">
       {sessions.map(({ id, text, defaultMinutes }: Session) => (
@@ -35,10 +39,10 @@ const SessionTypeButtonGroup = ({
           className={`transition-colors duration-300 ${
             activeID !== id && "border-transparent"
           } ${activeID === id && "!opacity-100 hover:bg-background"} ${
-            disabled && "text-transparent border-transparent bg-transparent"
+            running && "text-transparent border-transparent bg-transparent"
           }`}
-          aria-disabled={activeID === id || disabled}
-          disabled={disabled}
+          aria-disabled={activeID === id || running}
+          disabled={running}
         >
           {text}
         </Button>
