@@ -73,7 +73,8 @@ const TimerCard = () => {
     setOnBreak(false);
   };
 
-  const playPauseButtonWidth = timerBackgroundRef?.current?.offsetWidth || 187;
+  const playPauseButtonWidth =
+    timerBackgroundRef?.current?.offsetWidth || 178.85;
 
   return (
     <Card
