@@ -105,7 +105,7 @@ const TimerCard = () => {
               )
             }
             disabled={running}
-            cn="!bg-transparent pl-1 sm:pl-0"
+            cn="text-right sm:text-center"
           />
           {":"}
           <Input
@@ -121,7 +121,7 @@ const TimerCard = () => {
               )
             }
             disabled={running}
-            cn="!bg-transparent pr-1 sm:pr-0"
+            cn="text-left sm:text-center"
           />
         </div>
       </CardContent>
