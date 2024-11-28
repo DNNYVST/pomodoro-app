@@ -90,7 +90,7 @@ const TimerCard = () => {
       <CardContent className="flex justify-center">
         <div
           ref={timerBackgroundRef}
-          className={`flex justify-center text-6xl visible bg-card rounded-lg px-1 ${
+          className={`flex justify-center text-6xl visible bg-card rounded-lg ${
             running && "pointer-events-none"
           }`}
         >
@@ -105,7 +105,7 @@ const TimerCard = () => {
               )
             }
             disabled={running}
-            cn="!bg-transparent"
+            cn="!bg-transparent pl-1 sm:pl-0"
           />
           {":"}
           <Input
@@ -121,7 +121,7 @@ const TimerCard = () => {
               )
             }
             disabled={running}
-            cn="!bg-transparent"
+            cn="!bg-transparent pr-1 sm:pr-0"
           />
         </div>
       </CardContent>

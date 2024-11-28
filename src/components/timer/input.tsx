@@ -29,7 +29,7 @@ const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
       }
     }}
     onBlur={onBlur}
-    className={`rounded-sm max-w-[3ch] sm:max-w-[2ch] text-primary bg-background text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 hover:ring-1 hover:outline-none hover:ring-ring hover:ring-offset-2 ${cn}`}
+    className={`rounded-sm sm:max-w-[2ch] text-primary bg-background text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 hover:ring-1 hover:outline-none hover:ring-ring hover:ring-offset-2 ${cn}`}
     {...rest}
   />
 );
