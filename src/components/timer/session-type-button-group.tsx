@@ -28,7 +28,7 @@ const SessionTypeButtonGroup = ({
   const { running } = useContext(TimerContext);
 
   return (
-    <div className="flex-1 gap-x-1 flex justify-center">
+    <div className="flex flex-col items-center gap-y-2 sm:flex-row flex-1 gap-x-1 justify-center">
       {sessions.map(({ id, text, defaultMinutes }: Session) => (
         <Button
           key={id}
@@ -36,7 +36,7 @@ const SessionTypeButtonGroup = ({
           aria-label={text}
           variant="outline"
           onClick={() => onClick(id, defaultMinutes)}
-          className={`transition-colors duration-300 ${
+          className={`w-3/4 transition-colors duration-300 ${
             activeID !== id && "border-transparent"
           } ${activeID === id && "!opacity-100 hover:bg-background"} ${
             running && "text-transparent border-transparent bg-transparent"

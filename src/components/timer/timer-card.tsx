@@ -77,7 +77,7 @@ const TimerCard = () => {
 
   return (
     <Card
-      className={`w-full min-w-fit shadow-lg z-0 transition-colors duration-300 ${
+      className={`w-full sm:w-auto shadow-lg z-0 transition-colors duration-300 ${
         running && "border-transparent shadow-none select-none"
       } ${onBreak && "bg-transparent"}`}
     >
@@ -90,7 +90,7 @@ const TimerCard = () => {
       <CardContent className="flex justify-center">
         <div
           ref={timerBackgroundRef}
-          className={`flex justify-center text-6xl visible bg-card rounded-lg w-fit px-1 ${
+          className={`flex justify-center text-6xl visible bg-card rounded-lg px-1 ${
             running && "pointer-events-none"
           }`}
         >

@@ -68,7 +68,7 @@ const EditableTask = ({
             {completed ? <SquareCheckBig /> : <Square />}
             <span className="sr-only">Toggle task completed</span>
           </Button>
-          <span className="flex flex-1 text-wrap w-min">
+          <span className="flex flex-1">
             {editMode ? (
               <Input
                 id={`edit-task${id}-text-input`}
@@ -85,13 +85,13 @@ const EditableTask = ({
                     setEditMode(false);
                   }
                 }}
-                className="bg-card w-full border-dashed"
+                className="bg-card border-dashed"
                 placeholder="Edit task . . ."
                 autoFocus
               />
             ) : (
               <span
-                className={`pl-3 transition-opacity duration-300 border border-transparent ${
+                className={`break-words pl-3 transition-opacity duration-300 border border-transparent ${
                   completed && "opacity-50 line-through"
                 }`}
               >
@@ -99,7 +99,7 @@ const EditableTask = ({
               </span>
             )}
           </span>
-          <span>
+          <span className="flex flex-col sm:flex-row">
             {editMode ? (
               <Button
                 id="save-edited-task-text-button"
