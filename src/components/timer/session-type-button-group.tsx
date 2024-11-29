@@ -16,7 +16,7 @@ interface SessionTypeButtonGroupProps {
 }
 
 const sessions: Session[] = [
-  { id: 1, text: "Pomodoro", defaultMinutes: "30" },
+  { id: 1, text: "Pomodoro", defaultMinutes: "25" },
   { id: 2, text: "Short Break", defaultMinutes: "05" },
   { id: 3, text: "Long Break", defaultMinutes: "15" },
 ];

@@ -18,7 +18,7 @@ const getFormattedNumberString = (string: string) =>
 const TimerCard = () => {
   const { running, setRunning, onBreak, setOnBreak } = useContext(TimerContext);
   const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
-  const [minutes, setMinutes] = useState<string>("30");
+  const [minutes, setMinutes] = useState<string>("25");
   const [seconds, setSeconds] = useState<string>("00");
   const [intervalID, setIntervalID] = useState<number | null>(null);
   const timerBackgroundRef = useRef<HTMLDivElement>(null);
@@ -55,6 +55,13 @@ const TimerCard = () => {
         clearInterval(timer);
         setRunning(false);
         setOnBreak(false);
+        // initial implementation
+        // set timer to next session
+        if (activeSessionTypeID === 1) {
+          handleChangeSessionType(2, "05");
+        } else {
+          handleChangeSessionType(1, "25");
+        }
       } else {
         setSeconds((seconds) =>
           getFormattedNumberString(`${parseInt(seconds) - 1}`)
