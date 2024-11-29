@@ -57,6 +57,7 @@ const TimerCard = () => {
         setOnBreak(false);
         // initial implementation
         // set timer to next session
+        // TODO: identify when it's time for LONG break
         if (activeSessionTypeID === 1) {
           handleChangeSessionType(2, "05");
         } else {
