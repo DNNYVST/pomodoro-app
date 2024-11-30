@@ -12,9 +12,7 @@ const PageHeader = () => {
       {[...Array(4).keys()].map((_, index) => (
         <AlarmClockCheck
           key={index}
-          className={`${
-            completedPomodoros >= index + 1 ? "opacity-100" : "opacity-30"
-          }`}
+          className={`${completedPomodoros < index + 1 && "opacity-30"}`}
         />
       ))}
     </header>
