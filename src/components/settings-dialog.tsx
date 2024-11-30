@@ -2,6 +2,7 @@
 
 import {
   Dialog,
+  DialogDescription,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -26,6 +27,9 @@ const SettingsDialogButton = () => {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Settings</DialogTitle>
+            <DialogDescription className="italic">
+              Coming soon!
+            </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -38,7 +42,9 @@ const SettingsDialogButton = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Done</Button>
+            <Button type="submit" disabled>
+              Done
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
