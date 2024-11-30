@@ -20,15 +20,15 @@ const TimerCard = () => {
   const {
     running,
     setRunning,
+    activeSessionTypeId,
+    setActiveSessionTypeId,
     onBreak,
-    setOnBreak,
     completedPomodoros,
     setCompletedPomodoros,
   } = useContext(TimerContext);
-  const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
   const [minutes, setMinutes] = useState<string>("25");
   const [seconds, setSeconds] = useState<string>("00");
-  const [intervalID, setIntervalID] = useState<number | null>(null);
+  const [intervalId, setIntervalId] = useState<number | null>(null);
   const timerBackgroundRef = useRef<HTMLDivElement>(null);
 
   // Handle display updates during minute rollover
@@ -45,7 +45,7 @@ const TimerCard = () => {
   }, [seconds, minutes, running]);
 
   const handleChangeSessionType = (id: number, minutes: string) => {
-    setActiveSessionTypeID(id);
+    setActiveSessionTypeId(id);
     setMinutes(minutes);
     setSeconds("00");
   };
@@ -62,12 +62,11 @@ const TimerCard = () => {
       if (endTime.getTime() - now.getTime() < 0) {
         clearInterval(timer);
         setRunning(false);
-        setOnBreak(false);
 
         // initial implementation
         // set timer to next session
         // TODO: identify when it's time for LONG break
-        if (activeSessionTypeID === 1) {
+        if (activeSessionTypeId === 1) {
           setCompletedPomodoros(completedPomodoros + 1);
           if (completedPomodoros + 1 === 4) {
             handleChangeSessionType(3, "15");
@@ -76,7 +75,7 @@ const TimerCard = () => {
           }
         } else {
           handleChangeSessionType(1, "25");
-          if (activeSessionTypeID === 3 && completedPomodoros === 4) {
+          if (activeSessionTypeId === 3 && completedPomodoros === 4) {
             setCompletedPomodoros(0);
           }
         }
@@ -87,15 +86,13 @@ const TimerCard = () => {
       }
     }, 1000);
 
-    setIntervalID(+timer);
-    setOnBreak(activeSessionTypeID === 3);
+    setIntervalId(+timer);
   };
 
   const pauseTimer = () => {
-    clearInterval(intervalID as number);
-    setIntervalID(null);
+    clearInterval(intervalId as number);
+    setIntervalId(null);
     setRunning(false);
-    setOnBreak(false);
   };
 
   const playPauseButtonWidth =
@@ -108,10 +105,7 @@ const TimerCard = () => {
       } ${onBreak && "bg-transparent"}`}
     >
       <CardHeader className="flex gap-x-1 flex-row align-center space-y-0">
-        <SessionTypeButtonGroup
-          activeID={activeSessionTypeID}
-          onClick={handleChangeSessionType}
-        />
+        <SessionTypeButtonGroup onClick={handleChangeSessionType} />
       </CardHeader>
       <CardContent className="flex justify-center items-center relative">
         <div

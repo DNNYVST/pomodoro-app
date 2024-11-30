@@ -11,7 +11,6 @@ type Session = {
 };
 
 interface SessionTypeButtonGroupProps {
-  activeID: number;
   onClick: (id: number, minutes: string) => void;
 }
 
@@ -21,11 +20,8 @@ const sessions: Session[] = [
   { id: 3, text: "Long Break", defaultMinutes: "15" },
 ];
 
-const SessionTypeButtonGroup = ({
-  activeID,
-  onClick,
-}: SessionTypeButtonGroupProps) => {
-  const { running } = useContext(TimerContext);
+const SessionTypeButtonGroup = ({ onClick }: SessionTypeButtonGroupProps) => {
+  const { running, activeSessionTypeId } = useContext(TimerContext);
 
   return (
     <div className="flex flex-col items-center gap-y-2 sm:flex-row flex-1 gap-x-1 justify-center">
@@ -37,11 +33,11 @@ const SessionTypeButtonGroup = ({
           variant="outline"
           onClick={() => onClick(id, defaultMinutes)}
           className={`w-3/4 transition-colors duration-300 ${
-            activeID !== id && "border-transparent"
-          } ${activeID === id && "!opacity-100 hover:bg-background"} ${
-            running && "text-transparent border-transparent bg-transparent"
-          }`}
-          aria-disabled={activeID === id || running}
+            activeSessionTypeId !== id && "border-transparent"
+          } ${
+            activeSessionTypeId === id && "!opacity-100 hover:bg-background"
+          } ${running && "text-transparent border-transparent bg-transparent"}`}
+          aria-disabled={activeSessionTypeId === id || running}
           disabled={running}
         >
           {text}
