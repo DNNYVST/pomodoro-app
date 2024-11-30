@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useEffect, useContext } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import TaskList from "@/components/tasks/task-list";
@@ -68,6 +74,20 @@ const TasksCard = () => {
     >
       <CardHeader>
         <CardTitle>Tasks</CardTitle>
+        <CardDescription
+          className={`sm:hidden transition-colors duration-300 ${
+            running && "text-transparent"
+          }`}
+        >
+          Touch and hold to drag/reorder
+        </CardDescription>
+        <CardDescription
+          className={`hidden sm:block transition-colors duration-300 ${
+            running && "text-transparent"
+          }`}
+        >
+          Click and drag to reoder
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">
         {loading ? (
@@ -80,6 +100,7 @@ const TasksCard = () => {
         ) : (
           <TaskList
             tasks={tasks}
+            setTasks={setTasks}
             setStatus={setStatus}
             setText={setText}
             deleteTask={deleteTask}

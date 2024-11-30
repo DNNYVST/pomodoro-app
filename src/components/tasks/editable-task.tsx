@@ -13,8 +13,9 @@ import {
   X,
 } from "lucide-react";
 import { TimerContext } from "@/components/timer-provider";
-
 import { Task } from "./types";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface EditableTaskProps extends Task {
   setStatus: (id: number, status: string) => void;
@@ -36,6 +37,14 @@ const EditableTask = ({
 
   const completed = status === "completed";
 
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   // abandon in-progress edits if the timer starts
   useEffect(() => {
     if (running) {
@@ -50,6 +59,8 @@ const EditableTask = ({
       className={`items-center transition-colors duration-300 ${
         running && "border-transparent shadow-none text-transparent"
       } ${onBreak && "bg-transparent"}`}
+      ref={setNodeRef}
+      style={style}
     >
       <CardContent className="p-2">
         <div className="flex flex-row items-center gap-x-2">
@@ -72,7 +83,7 @@ const EditableTask = ({
             {completed ? <SquareCheckBig /> : <Square />}
             <span className="sr-only">Toggle task completed</span>
           </Button>
-          <span className="flex flex-1">
+          <span className="flex flex-1" {...listeners} {...attributes}>
             {editMode ? (
               <Input
                 id={`edit-task${id}-text-input`}
@@ -125,7 +136,10 @@ const EditableTask = ({
                 aria-label="edit task text button"
                 variant="ghost"
                 className="transition-opacity duration-300"
-                onClick={() => setEditMode((editMode) => !editMode)}
+                onClick={() => {
+                  console.log("edit");
+                  setEditMode((editMode) => !editMode);
+                }}
                 aria-disabled={completed}
                 disabled={running}
               >
@@ -144,6 +158,9 @@ const EditableTask = ({
               <X />
               <span className="sr-only">Delete task</span>
             </Button>
+            {/* <Button variant="ghost" {...listeners} {...attributes}>
+              <GripVertical />
+            </Button> */}
           </span>
         </div>
       </CardContent>
