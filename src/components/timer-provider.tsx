@@ -34,9 +34,9 @@ export const TimerContext = createContext<TimerContextType>({
 
 export const TimerProvider = ({ children }: { children: ReactNode }) => {
   const [running, setRunning] = useState<boolean>(false);
+  const [activeSessionTypeId, setActiveSessionTypeId] = useState<number>(1);
   const { value: completedPomodoros, setValue: setCompletedPomodoros } =
     useLocalStorage("completedPomodoros", 0);
-  const [activeSessionTypeId, setActiveSessionTypeId] = useState<number>(1);
 
   const onBreak = running && activeSessionTypeId === 3;
 
