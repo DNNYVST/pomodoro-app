@@ -10,12 +10,12 @@ import { TimerProvider } from "../components/timer-provider";
 export default function Home() {
   return (
     <TimerProvider>
-      <span className="flex fixed p-6 sm:p-4 z-50">
+      <span className="absolute flex p-6 z-50">
         <ThemeToggle />
         <SettingsDialogButton />
       </span>
       <BreakBackground />
-      <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-6 sm:gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-6 sm:gap-16 font-[family-name:var(--font-geist-sans)]">
         <PageHeader />
         <main className="flex flex-col gap-8 row-start-2 items-center w-full md:w-3/4 lg:w-[66%] xl:w-[46%] 2xl:w-[41%] 3xl:w-1/3">
           <TimerCard />

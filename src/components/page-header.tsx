@@ -8,7 +8,7 @@ const PageHeader = () => {
   const { completedPomodoros } = useContext(TimerContext);
 
   return (
-    <header className="flex gap-x-2">
+    <header className="z-50 flex gap-x-2 transition-none">
       {[...Array(4).keys()].map((_, index) => (
         <Fragment key={index}>
           <AlarmClockCheck
