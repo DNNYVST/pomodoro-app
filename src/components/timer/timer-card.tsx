@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
+import { History } from "lucide-react";
 import { TimerContext } from "@/components/timer-provider";
 
 const getFormattedNumberString = (string: string) =>
@@ -96,10 +97,10 @@ const TimerCard = () => {
           onClick={handleChangeSessionType}
         />
       </CardHeader>
-      <CardContent className="flex justify-center">
+      <CardContent className="flex justify-center items-center relative">
         <div
           ref={timerBackgroundRef}
-          className={`flex justify-center text-6xl visible bg-card rounded-lg ${
+          className={`flex text-6xl visible bg-card rounded-lg ${
             running && "pointer-events-none"
           }`}
         >
@@ -133,6 +134,12 @@ const TimerCard = () => {
             cn="text-left sm:text-center"
           />
         </div>
+        {/* <Button
+          variant="ghost"
+          className="absolute left-1/2 translate-x-full ml-14 px-1 opacity-40"
+        >
+          <History className="!w-[2rem] !h-[2rem]" />
+        </Button> */}
       </CardContent>
       <CardFooter className="justify-center">
         <Button
