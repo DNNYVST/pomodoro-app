@@ -19,7 +19,7 @@ const SettingsDialogButton = () => {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="ghost">
+          <Button variant="ghost" className="transition-colors duration-300">
             <Settings />
             <span className="sr-only">Settings</span>
           </Button>

@@ -15,6 +15,7 @@ const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="transition-colors duration-300"
     >
       <Sun className="h-[1.2rem] w-[1.2rem] scale-100 dark:scale-0" />
       <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 dark:scale-100" />
