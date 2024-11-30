@@ -42,6 +42,7 @@ const EditableTask = ({
       setEditedText(text);
       setEditMode(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running]);
 
   return (

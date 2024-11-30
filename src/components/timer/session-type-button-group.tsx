@@ -26,7 +26,7 @@ const SessionTypeButtonGroup = () => {
 
   return (
     <div className="flex flex-col items-center gap-y-2 sm:flex-row flex-1 gap-x-1 justify-center">
-      {sessions.map(({ id, text, defaultMinutes }: Session) => (
+      {sessions.map(({ id, text }: Session) => (
         <Button
           key={id}
           id={`${text}-button`}

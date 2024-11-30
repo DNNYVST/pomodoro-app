@@ -33,6 +33,7 @@ const TaskList = () => {
     } else {
       document.body.style.overflow = "visible";
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running]);
 
   const addTask = (text: string) => {
@@ -97,10 +98,10 @@ const TaskList = () => {
               id="add-new-task-input"
               aria-label="add new task input"
               value={newTaskText}
-              className={`border-dashed py-2 text-center transition-opacity duration-300 ${
+              className={`placeholder:italic border-dashed py-2 text-center transition-opacity duration-300 ${
                 running && "!opacity-0"
               }`}
-              placeholder="add task"
+              placeholder="Type here to add task"
               onChange={(e) => setNewTaskText(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !!newTaskText.trim()) {

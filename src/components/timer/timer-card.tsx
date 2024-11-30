@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
 import BreakReminderDialog from "@/components/break-reminder-dialog";
-import { History } from "lucide-react";
 import { TimerContext } from "@/components/timer-provider";
 
 const getFormattedNumberString = (string: string) =>

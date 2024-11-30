@@ -42,12 +42,12 @@ const BreakReminderDialog = ({
           <DialogFooter className="flex flex-col gap-4 sm:flex-row sm:gap-2">
             <DialogClose asChild>
               <Button onClick={onClickConfirm}>
-                Okay - i'll take a break!
+                {`Okay - i'll take a break!`}
               </Button>
             </DialogClose>
             <DialogClose asChild>
               <Button onClick={onClickDeny} variant="outline">
-                I took a break - I promise!
+                {`I took a break - I promise!`}
               </Button>
             </DialogClose>
           </DialogFooter>
