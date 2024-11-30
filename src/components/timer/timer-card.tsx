@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Input from "./input";
 import SessionTypeButtonGroup from "./session-type-button-group";
+import BreakReminderDialog from "@/components/break-reminder-dialog";
 import { History } from "lucide-react";
 import { TimerContext } from "@/components/timer-provider";
 
@@ -31,6 +32,8 @@ const TimerCard = () => {
   const [intervalId, setIntervalId] = useState<number | null>(null);
   const timerBackgroundRef = useRef<HTMLDivElement>(null);
 
+  const showBreakReminder = activeSessionTypeId !== 3 && completedPomodoros > 3;
+
   // Handle display updates during minute rollover
   useEffect(() => {
     if (running) {
@@ -44,10 +47,47 @@ const TimerCard = () => {
     }
   }, [seconds, minutes, running]);
 
-  const handleChangeSessionType = (id: number, minutes: string) => {
-    setActiveSessionTypeId(id);
-    setMinutes(minutes);
+  useEffect(() => {
+    setMinutes(
+      activeSessionTypeId === 1
+        ? "25"
+        : activeSessionTypeId === 2
+        ? "05"
+        : activeSessionTypeId === 3
+        ? "15"
+        : "00"
+    );
     setSeconds("00");
+  }, [activeSessionTypeId]);
+
+  const handleClickPlayPauseButton = () => {
+    if (running) {
+      pauseTimer();
+    } else if (!showBreakReminder) {
+      startTimer();
+    }
+  };
+
+  const updateCompletedPomodorosAndTimer = () => {
+    // Completing a pomodoro
+    let newPomodoroCount = completedPomodoros + 1;
+    if (activeSessionTypeId === 1) {
+      if (completedPomodoros >= 4) {
+        newPomodoroCount = 1;
+      }
+      setCompletedPomodoros(newPomodoroCount);
+      if (newPomodoroCount > 3) {
+        setActiveSessionTypeId(3);
+      } else {
+        setActiveSessionTypeId(2);
+      }
+    } else {
+      // Completing a break
+      setActiveSessionTypeId(1);
+      if (activeSessionTypeId === 3 && completedPomodoros > 3) {
+        setCompletedPomodoros(0);
+      }
+    }
   };
 
   const startTimer = () => {
@@ -62,23 +102,7 @@ const TimerCard = () => {
       if (endTime.getTime() - now.getTime() < 0) {
         clearInterval(timer);
         setRunning(false);
-
-        // initial implementation
-        // set timer to next session
-        // TODO: identify when it's time for LONG break
-        if (activeSessionTypeId === 1) {
-          setCompletedPomodoros(completedPomodoros + 1);
-          if (completedPomodoros + 1 === 4) {
-            handleChangeSessionType(3, "15");
-          } else {
-            handleChangeSessionType(2, "05");
-          }
-        } else {
-          handleChangeSessionType(1, "25");
-          if (activeSessionTypeId === 3 && completedPomodoros === 4) {
-            setCompletedPomodoros(0);
-          }
-        }
+        updateCompletedPomodorosAndTimer();
       } else {
         setSeconds((seconds) =>
           getFormattedNumberString(`${parseInt(seconds) - 1}`)
@@ -105,7 +129,7 @@ const TimerCard = () => {
       } ${onBreak && "bg-transparent"}`}
     >
       <CardHeader className="flex gap-x-1 flex-row align-center space-y-0">
-        <SessionTypeButtonGroup onClick={handleChangeSessionType} />
+        <SessionTypeButtonGroup />
       </CardHeader>
       <CardContent className="flex justify-center items-center relative">
         <div
@@ -152,19 +176,30 @@ const TimerCard = () => {
         </Button> */}
       </CardContent>
       <CardFooter className="justify-center">
-        <Button
-          id="start-pause-button"
-          aria-label="start or pause button"
-          variant={running ? "destructive" : "default"}
-          onClick={running ? pauseTimer : startTimer}
-          aria-disabled={
-            !minutes || !seconds || (minutes === "00" && seconds === "00")
-          }
-          className="visible"
-          style={{ width: playPauseButtonWidth }}
+        <BreakReminderDialog
+          triggerEnabled={showBreakReminder}
+          onClickConfirm={() => {
+            setActiveSessionTypeId(3);
+          }}
+          onClickDeny={() => {
+            setCompletedPomodoros(0);
+            startTimer();
+          }}
         >
-          {running ? "Pause" : "Start"}
-        </Button>
+          <Button
+            id="start-pause-button"
+            aria-label="start or pause button"
+            variant={running ? "destructive" : "default"}
+            onClick={handleClickPlayPauseButton}
+            aria-disabled={
+              !minutes || !seconds || (minutes === "00" && seconds === "00")
+            }
+            className="visible"
+            style={{ width: playPauseButtonWidth }}
+          >
+            {running ? "Pause" : "Start"}
+          </Button>
+        </BreakReminderDialog>
       </CardFooter>
     </Card>
   );

@@ -1,5 +1,5 @@
 import ThemeToggle from "../components/theme-toggle";
-import SettingsDialogButton from "@/components/settings-dialog-button";
+import SettingsDialogButton from "@/components/settings-dialog";
 import PageHeader from "@/components/page-header";
 import BreakBackground from "../components/break-background";
 import TimerCard from "../components/timer/timer-card";
