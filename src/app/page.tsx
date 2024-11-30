@@ -1,4 +1,5 @@
 import ThemeToggle from "../components/theme-toggle";
+import SettingsDialogButton from "@/components/settings-dialog-button";
 import BreakBackground from "../components/break-background";
 import TimerCard from "../components/timer/timer-card";
 import TaskList from "../components/tasks/task-list";
@@ -8,8 +9,9 @@ import { TimerProvider } from "../components/timer-provider";
 export default function Home() {
   return (
     <TimerProvider>
-      <span className="fixed p-6 sm:p-4 z-50">
+      <span className="flex fixed p-6 sm:p-4 z-50">
         <ThemeToggle />
+        <SettingsDialogButton />
       </span>
       <BreakBackground />
       <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-6 sm:gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
