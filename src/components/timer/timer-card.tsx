@@ -17,7 +17,14 @@ const getFormattedNumberString = (string: string) =>
   string.length === 1 ? `0${string}` : string;
 
 const TimerCard = () => {
-  const { running, setRunning, onBreak, setOnBreak } = useContext(TimerContext);
+  const {
+    running,
+    setRunning,
+    onBreak,
+    setOnBreak,
+    completedPomodoros,
+    setCompletedPomodoros,
+  } = useContext(TimerContext);
   const [activeSessionTypeID, setActiveSessionTypeID] = useState<number>(1);
   const [minutes, setMinutes] = useState<string>("25");
   const [seconds, setSeconds] = useState<string>("00");
@@ -52,17 +59,26 @@ const TimerCard = () => {
 
     const timer = setInterval(() => {
       const now = new Date();
-      if (endTime.getTime() - now.getTime() + 1000 < 0) {
+      if (endTime.getTime() - now.getTime() < 0) {
         clearInterval(timer);
         setRunning(false);
         setOnBreak(false);
+
         // initial implementation
         // set timer to next session
         // TODO: identify when it's time for LONG break
         if (activeSessionTypeID === 1) {
-          handleChangeSessionType(2, "05");
+          setCompletedPomodoros(completedPomodoros + 1);
+          if (completedPomodoros + 1 === 4) {
+            handleChangeSessionType(3, "15");
+          } else {
+            handleChangeSessionType(2, "05");
+          }
         } else {
           handleChangeSessionType(1, "25");
+          if (activeSessionTypeID === 3 && completedPomodoros === 4) {
+            setCompletedPomodoros(0);
+          }
         }
       } else {
         setSeconds((seconds) =>
