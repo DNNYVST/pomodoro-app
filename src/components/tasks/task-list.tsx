@@ -36,7 +36,10 @@ const TaskList = () => {
   }, [running]);
 
   const addTask = (text: string) => {
-    setTasks((tasks) => [...tasks, { id: Date.now(), text, status: "todo" }]);
+    setTasks((tasks) => [
+      ...tasks,
+      { id: Date.now(), text, status: "incomplete" },
+    ]);
   };
 
   const setStatus = (id: number, status: string) => {

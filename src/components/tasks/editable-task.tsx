@@ -60,7 +60,10 @@ const EditableTask = ({
               completed && "opacity-50"
             }`}
             onClick={() =>
-              setStatus(id, status === "todo" ? "completed" : "todo")
+              setStatus(
+                id,
+                status === "incomplete" ? "completed" : "incomplete"
+              )
             }
             aria-disabled={editMode}
             disabled={running}
