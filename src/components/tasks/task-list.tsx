@@ -40,12 +40,7 @@ const TaskList = ({
   deleteTask,
 }: TaskListProps) => {
   const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        delay: 250,
-        tolerance: 0,
-      },
-    }),
+    useSensor(MouseSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),

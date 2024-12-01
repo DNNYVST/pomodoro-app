@@ -86,7 +86,7 @@ const TasksCard = () => {
             running && "text-transparent"
           }`}
         >
-          Click and hold to drag/reorder
+          Click and drag to reoder
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-2">

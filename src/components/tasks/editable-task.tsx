@@ -116,7 +116,7 @@ const EditableTask = ({
               />
             ) : (
               <span
-                className={`select-none sm:select-auto break-words pl-3 transition-opacity duration-300 border border-transparent ${
+                className={`break-words pl-3 transition-opacity duration-300 border border-transparent ${
                   completed && "opacity-50 line-through"
                 }`}
               >
