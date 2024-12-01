@@ -15,7 +15,6 @@ import {
 import { TimerContext } from "@/components/timer-provider";
 import { Task } from "./types";
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 
 interface EditableTaskProps extends Task {
   setStatus: (id: number, status: string) => void;
