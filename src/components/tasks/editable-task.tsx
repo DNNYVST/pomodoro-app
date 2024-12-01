@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, TouchEvent } from "react";
+import useSwipeDetection from "@/app/hooks/use-swipe-detection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,6 +36,9 @@ const EditableTask = ({
   const [editedText, setEditedText] = useState<string>(text);
 
   const completed = status === "completed";
+
+  const { onTouchStart, onTouchMove, onTouchEnd, swipeDistance } =
+    useSwipeDetection();
 
   const {
     attributes,
@@ -71,6 +75,9 @@ const EditableTask = ({
       } ${onBreak && "bg-transparent"}`}
       ref={setNodeRef}
       style={style}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       <CardContent className="p-2">
         <div className="flex flex-row items-center gap-x-2">
@@ -146,10 +153,7 @@ const EditableTask = ({
                 aria-label="edit task text button"
                 variant="ghost"
                 className="transition-opacity duration-300"
-                onClick={() => {
-                  console.log("edit");
-                  setEditMode((editMode) => !editMode);
-                }}
+                onClick={() => setEditMode((editMode) => !editMode)}
                 aria-disabled={completed}
                 disabled={running}
               >
