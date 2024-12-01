@@ -37,11 +37,22 @@ const EditableTask = ({
 
   const completed = status === "completed";
 
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0) scale(${
+          isDragging ? 1.05 : 1
+        })`
+      : undefined,
+    zIndex: isDragging ? 100 : "auto",
     transition,
   };
 
