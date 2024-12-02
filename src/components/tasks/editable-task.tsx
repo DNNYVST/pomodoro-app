@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useContext, TouchEvent } from "react";
+import { useState, useEffect, useContext } from "react";
 import useSwipeDetection from "@/app/hooks/use-swipe-detection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -38,7 +38,7 @@ const EditableTask = ({
 
   const completed = status === "completed";
 
-  const { onTouchStart, onTouchMove, onTouchEnd } = useSwipeDetection({
+  const { onTouchStart, onTouchMove } = useSwipeDetection({
     onSwipedLeft: () => setShowMobileControls(true),
   });
 
@@ -79,14 +79,13 @@ const EditableTask = ({
       ref={setNodeRef}
       style={style}
       onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
     >
       <CardContent className="p-2 flex relative">
         <div
           className="flex flex-row items-center sm:gap-x-2 w-full"
           onTouchStart={(e) => {
             onTouchStart(e);
-            setShowMobileControls(false);
+            setShowMobileControls(editMode);
           }}
         >
           <Button

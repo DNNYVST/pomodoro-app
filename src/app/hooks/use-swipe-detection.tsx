@@ -37,19 +37,19 @@ const useSwipeDetection = (input: SwipeInput) => {
     }
   };
 
-  const onTouchEnd = (e: TouchEvent) => {
-    if (!touchStart || !touchEnd) return;
-    // const isLeftSwipe = distance > MIN_SWIPE_DISTANCE;
-    // const isRightSwipe = distance < -MIN_SWIPE_DISTANCE;
-    // if (isLeftSwipe) {
-    //   input?.onSwipedLeft?.();
-    // }
-    // if (isRightSwipe) {
-    //   input?.onSwipedRight?.();
-    // }
-  };
+  // const onTouchEnd = (e: TouchEvent) => {
+  //   if (!touchStart || !touchEnd) return;
+  //   // const isLeftSwipe = distance > MIN_SWIPE_DISTANCE;
+  //   // const isRightSwipe = distance < -MIN_SWIPE_DISTANCE;
+  //   // if (isLeftSwipe) {
+  //   //   input?.onSwipedLeft?.();
+  //   // }
+  //   // if (isRightSwipe) {
+  //   //   input?.onSwipedRight?.();
+  //   // }
+  // };
 
-  return { onTouchStart, onTouchMove, onTouchEnd, swipeDistance };
+  return { onTouchStart, onTouchMove, swipeDistance };
 };
 
 export default useSwipeDetection;
