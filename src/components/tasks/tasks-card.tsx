@@ -79,7 +79,8 @@ const TasksCard = () => {
             running && "text-transparent"
           }`}
         >
-          Touch and hold to drag/reorder
+          <p>Touch and hold to drag/reorder</p>
+          <p>Swipe left to edit/delete</p>
         </CardDescription>
         <CardDescription
           className={`hidden sm:block transition-colors duration-300 ${

@@ -34,11 +34,13 @@ const EditableTask = ({
   const { running, onBreak } = useContext(TimerContext);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [editedText, setEditedText] = useState<string>(text);
+  const [showMobileControls, setShowMobileControls] = useState<boolean>(false);
 
   const completed = status === "completed";
 
-  const { onTouchStart, onTouchMove, onTouchEnd, swipeDistance } =
-    useSwipeDetection();
+  const { onTouchStart, onTouchMove, onTouchEnd } = useSwipeDetection({
+    onSwipedLeft: () => setShowMobileControls(true),
+  });
 
   const {
     attributes,
@@ -47,7 +49,7 @@ const EditableTask = ({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id });
+  } = useSortable({ id, disabled: editMode });
 
   const style = {
     transform: transform
@@ -64,6 +66,7 @@ const EditableTask = ({
     if (running) {
       setEditedText(text);
       setEditMode(false);
+      setShowMobileControls(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running]);
@@ -75,12 +78,17 @@ const EditableTask = ({
       } ${onBreak && "bg-transparent"}`}
       ref={setNodeRef}
       style={style}
-      onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      <CardContent className="p-2">
-        <div className="flex flex-row items-center gap-x-2">
+      <CardContent className="p-2 flex relative">
+        <div
+          className="flex flex-row items-center sm:gap-x-2 w-full"
+          onTouchStart={(e) => {
+            onTouchStart(e);
+            setShowMobileControls(false);
+          }}
+        >
           <Button
             id={`toggle-task${id}-completed-button`}
             aria-label="toggle task completed button"
@@ -108,16 +116,20 @@ const EditableTask = ({
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
                 onKeyDown={(e) => {
+                  console.log(e.key);
                   if (e.key === "Enter" && !!editedText.trim()) {
                     setText(id, editedText.trim());
                     setEditMode(false);
+                    setShowMobileControls(false);
                   }
                   if (e.key === "Escape") {
                     setEditedText(text);
                     setEditMode(false);
                   }
                 }}
-                className="bg-card border-dashed"
+                className={`bg-card border-dashed ${
+                  showMobileControls && "w-[75%]"
+                }`}
                 placeholder="Edit task . . ."
                 autoFocus
               />
@@ -131,7 +143,8 @@ const EditableTask = ({
               </span>
             )}
           </span>
-          <span className="flex flex-col sm:flex-row">
+          {/* small+ screen edit/delete controls */}
+          <span className="flex flex-col sm:flex-row hidden sm:block">
             {editMode ? (
               <Button
                 id="save-edited-task-text-button"
@@ -177,6 +190,57 @@ const EditableTask = ({
             </Button> */}
           </span>
         </div>
+        {/* smallest screen edit/delete controls */}
+        <span
+          className={`transition-opacity duration-300 ${
+            showMobileControls ? "visible opacity-100" : "invisible opacity-0"
+          } sm:hidden flex gap-x-1 bg-card absolute right-1 top-0 bottom-0 py-1`}
+        >
+          {editMode ? (
+            <Button
+              id="save-edited-task-text-button"
+              aria-label="save edited task text button"
+              variant="secondary"
+              onClick={() => {
+                setText(id, editedText.trim());
+                setEditMode(false);
+                setShowMobileControls(false);
+              }}
+              aria-disabled={completed || !editedText.trim()}
+              disabled={running}
+              className="h-full"
+            >
+              <Save />
+              <span className="sr-only">Save task</span>
+            </Button>
+          ) : (
+            <Button
+              id="edit-task-text-button"
+              aria-label="edit task text button"
+              variant={completed ? "ghost" : "secondary"}
+              onClick={() => setEditMode((editMode) => !editMode)}
+              aria-disabled={completed}
+              disabled={running}
+              className="h-full"
+            >
+              {completed ? <PencilOff /> : <Pencil />}
+              <span className="sr-only">Edit task</span>
+            </Button>
+          )}
+          {!editMode && (
+            <Button
+              id="delete-task-button"
+              aria-label="delete task button"
+              variant="destructive"
+              className="h-full"
+              onClick={() => deleteTask(id)}
+              disabled={running}
+            >
+              <X />
+              <span className="sr-only">Delete task</span>
+            </Button>
+          )}
+        </span>
       </CardContent>
     </Card>
   );
