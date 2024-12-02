@@ -49,7 +49,8 @@ const BreakBackground = () => {
         loop
         playsInline
         disablePictureInPicture
-        className="fixed object-cover w-[100vw] h-[100vh] ml-[-50%] z-[-1]"
+        //className="fixed object-cover w-[100vw] h-[100vh] ml-[-50%] z-[-1]"
+        className="fixed object-cover sm:w-[100vw] h-[50vh] sm:h-[100vh] sm:ml-[-50%] z-[-1]"
       >
         <source src="/clouds.mp4" type="video/mp4" />
       </video>
@@ -60,7 +61,8 @@ const BreakBackground = () => {
         loop
         playsInline
         disablePictureInPicture
-        className="fixed object-cover w-[100vw] h-[100vh] z-[-2]"
+        //className="fixed object-cover w-[100vw] h-[100vh] z-[-2]"
+        className="fixed object-cover sm:w-[100vw] h-[50vh] sm:h-[100vh] top-[50vh] sm:top-0 z-[-2]"
       >
         <source src="/daisies.mp4" type="video/mp4" />
       </video>

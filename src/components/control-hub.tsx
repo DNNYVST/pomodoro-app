@@ -13,7 +13,7 @@ const ControlHub = () => {
 
   return (
     <span
-      className={`absolute flex p-6 z-50 ${
+      className={`absolute flex p-2 sm:p-6 z-50 ${
         onBreak &&
         !prefersReducedMotion &&
         "text-primary-foreground dark:text-primary"
