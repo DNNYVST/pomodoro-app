@@ -133,6 +133,7 @@ const TasksCard = () => {
               }
             }}
             disabled={running}
+            autoComplete="off"
           />
           <Button
             id="add-new-task-button"
