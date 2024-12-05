@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint disable no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState, useEffect } from "react";
 import { Snowflake } from "lucide-react";
