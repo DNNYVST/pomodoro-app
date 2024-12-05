@@ -60,13 +60,13 @@ const SnowToggle = () => {
     setAnimationData({
       animationIndices: Array(20)
         .fill(0)
-        .map((_, index) => Math.floor(Math.random() * ANIMATIONS.length)),
+        .map((_) => Math.floor(Math.random() * ANIMATIONS.length)),
       sizeIndices: Array(20)
         .fill(0)
-        .map((_, index) => Math.floor(Math.random() * SIZES.length)),
+        .map((_) => Math.floor(Math.random() * SIZES.length)),
       delayIndices: Array(20)
         .fill(0)
-        .map((_, index) => Math.floor(Math.random() * ANIMATION_DELAYS.length)),
+        .map((_) => Math.floor(Math.random() * ANIMATION_DELAYS.length)),
     });
   }, []);
 
