@@ -17,10 +17,15 @@ const ANIMATIONS = [
   "animate-[snowfall_11s_linear_0s_infinite]",
 ];
 
-const radii = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-const SIZES = radii.map((radius) => `w-[${radius}px] h-[${radius}px]`);
-
+const SIZES = [
+  "w-[2px] h-[2px]",
+  "w-[3px] h-[3px]",
+  "w-[4px] h-[4px]",
+  "w-[5px] h-[5px]",
+  "w-[6px] h-[6px]",
+  "w-[8px] h-[8px]",
+  "w-[10px] h-[10px]",
+];
 const SnowToggle = () => {
   const [snowing, setSnowing] = useState<boolean>(false);
 
