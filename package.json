@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "local": "next -H 0.0.0.0",
+    "local": "next --experimental-https -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
