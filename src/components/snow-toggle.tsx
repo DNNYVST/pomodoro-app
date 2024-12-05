@@ -1,6 +1,7 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useState, useEffect } from "react";
 import { Snowflake } from "lucide-react";
@@ -136,12 +137,13 @@ const SnowToggle = () => {
         >
           {Array(20)
             .fill(0)
-            .map((index) => {
+            .map((_, index) => {
               const { animationIndices, sizeIndices, delayIndices } =
                 animationData;
               const animation = ANIMATIONS[animationIndices[index]];
               const size = SIZES[sizeIndices[index]];
               const sizeValue = SIZE_VALUES[sizeIndices[index]];
+              const animationDelay = ANIMATION_DELAYS[delayIndices[index]];
               return (
                 <div
                   key={index}
@@ -152,7 +154,7 @@ const SnowToggle = () => {
                     transform: `translate(${Math.floor(
                       tilt.gamma * sizeValue * 0.08
                     )}px, ${Math.floor((tilt.beta - 50) * sizeValue * 0.1)}px)`,
-                    animationDelay: `${ANIMATION_DELAYS[delayIndices[index]]}s`,
+                    animationDelay: `${animationDelay}s`,
                   }}
                 ></div>
               );
