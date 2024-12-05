@@ -1,5 +1,7 @@
 "use client";
 
+// @typescript-eslint/no-explicit-any
+
 import { useState, useEffect } from "react";
 import { Snowflake } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -60,13 +62,13 @@ const SnowToggle = () => {
     setAnimationData({
       animationIndices: Array(20)
         .fill(0)
-        .map((_) => Math.floor(Math.random() * ANIMATIONS.length)),
+        .map(() => Math.floor(Math.random() * ANIMATIONS.length)),
       sizeIndices: Array(20)
         .fill(0)
-        .map((_) => Math.floor(Math.random() * SIZES.length)),
+        .map(() => Math.floor(Math.random() * SIZES.length)),
       delayIndices: Array(20)
         .fill(0)
-        .map((_) => Math.floor(Math.random() * ANIMATION_DELAYS.length)),
+        .map(() => Math.floor(Math.random() * ANIMATION_DELAYS.length)),
     });
   }, []);
 
@@ -134,7 +136,7 @@ const SnowToggle = () => {
         >
           {Array(20)
             .fill(0)
-            .map((_, index) => {
+            .map((index) => {
               const { animationIndices, sizeIndices, delayIndices } =
                 animationData;
               const animation = ANIMATIONS[animationIndices[index]];
