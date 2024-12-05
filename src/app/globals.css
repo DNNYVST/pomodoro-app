@@ -84,26 +84,16 @@ body {
     -moz-appearance: textfield;
   }
 
-  /* @keyframes fadein {
-    0% {
-      opacity: 1;
-    }
-    100% {
+  @keyframes snowfall {
+    from {
+      top: 0;
       opacity: 0;
     }
-  }
-
-  @-webkit-keyframes fadein {
-    0% {
+    20% {
       opacity: 1;
     }
-    100% {
-      opacity: 0;
+    to {
+      top: 100vh;
     }
   }
-
-  #breakFadeIn {
-    -webkit-animation: 2s ease 0s normal forwards 1 fadein;
-    animation: 2s ease 0s normal forwards 1 fadein;
-  } */
 }
