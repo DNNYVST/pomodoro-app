@@ -11,6 +11,7 @@ interface InputProps extends ComponentPropsWithoutRef<"input"> {
 const Input = ({ id, value, onChange, onBlur, cn, ...rest }: InputProps) => (
   <input
     type="number"
+    inputMode="numeric"
     min="0"
     max="60"
     id={id}
