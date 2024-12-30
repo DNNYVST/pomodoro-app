@@ -33,12 +33,34 @@ const SettingsDialogButton = () => {
           </DialogHeader>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="auto-start-break">Auto Start Break</Label>
-              <Switch id="auto-start-break" />
+              <Label
+                htmlFor="sound-effects"
+                className="opacity-40"
+                aria-disabled
+              >
+                Sound effects
+              </Label>
+              <Switch id="sound-effects" checked disabled />
             </div>
             <div className="flex items-center justify-between">
-              <Label htmlFor="auto-start-focus">Auto Start Focus</Label>
-              <Switch id="auto-start-focus" />
+              <Label
+                htmlFor="auto-start-break"
+                className="opacity-40"
+                aria-disabled
+              >
+                Auto Start Break
+              </Label>
+              <Switch id="auto-start-break" disabled />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label
+                htmlFor="auto-start-focus"
+                className="opacity-40"
+                aria-disabled
+              >
+                Auto Start Focus
+              </Label>
+              <Switch id="auto-start-focus" disabled />
             </div>
           </div>
           <DialogFooter>
