@@ -30,8 +30,17 @@ const TimerCard = () => {
   const [seconds, setSeconds] = useState<string>("00");
   const [intervalId, setIntervalId] = useState<number | null>(null);
   const timerBackgroundRef = useRef<HTMLDivElement>(null);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   const showBreakReminder = activeSessionTypeId !== 3 && completedPomodoros > 3;
+
+  if (audio) {
+    audio.volume = 0.5;
+  }
+
+  useEffect(() => {
+    setAudio(new Audio("/bell_ding.mp3"));
+  }, []);
 
   // Handle display updates during minute rollover
   useEffect(() => {
@@ -99,6 +108,7 @@ const TimerCard = () => {
     const timer = setInterval(() => {
       const now = new Date();
       if (endTime.getTime() - now.getTime() < 0) {
+        audio?.play();
         clearInterval(timer);
         setRunning(false);
         updateCompletedPomodorosAndTimer();
